@@ -534,3 +534,146 @@ LOAD DATA local INFILE  'I:/Sistematizacion_inventario_Klimatizar/Presentacion/D
         FIELDS TERMINATED BY  ','
         LINES TERMINATED BY  '\r\n'
         IGNORE 1 LINES (Empleado_Documento,FichaTecnica_codigoFicha);
+        
+desc afp;
+desc arl;
+desc cargo;
+desc  cliente;
+desc  codigoorden;
+desc  codigoremision;
+desc  codigosolicitud;
+desc  codigosolicitudcliente;
+desc  datosgenerales;
+desc  devolucion;
+desc  empleado;
+desc  empleado_has_fichatecnica;
+desc eps;
+desc  fichatecnica;
+desc  obra;
+desc  ordendecompra;
+desc from producto;
+desc from proveedor;
+desc from proveedor_has_producto;
+desc from remisionmaterial;
+desc from solicituddematerial;
+desc from solicituddematerial_has_cliente;
+
+select*from afp;
+select*from arl;
+select*from cargo;
+select*from cliente;
+select*from codigoorden;
+select*from codigoremision;
+select*from codigosolicitud;
+select*from codigosolicitudcliente;
+select*from datosgenerales;
+select*from devolucion;
+select*from empleado;
+select*from empleado_has_fichatecnica;
+select*from eps;
+select*from fichatecnica;
+select*from obra;
+select*from ordendecompra;
+select*from producto;
+select*from proveedor;
+select*from proveedor_has_producto;
+select*from remisionmaterial;
+select*from solicituddematerial;
+select*from solicituddematerial_has_cliente;
+
+select count(*)from afp;
+select count(*)from arl;
+select count(*)from cargo;
+select count(*)from cliente;
+select count(*)from codigoorden;
+select count(*)from codigoremision;
+select count(*)from codigosolicitud;
+select count(*)from codigosolicitudcliente;
+select count(*)from datosgenerales;
+select count(*)from devolucion;
+select count(*)from empleado;
+select count(*)from empleado_has_fichatecnica;
+select count(*)from eps;
+select count(*)from fichatecnica;
+select count(*)from obra;
+select count(*)from ordendecompra;
+select count(*)from producto;
+select count(*)from proveedor;
+select count(*)from proveedor_has_producto;
+select count(*)from remisionmaterial;
+select count(*)from solicituddematerial;
+select*from solicituddematerial_has_cliente;
+
+   select nombreProducto,avg(valorTotal)
+   from producto,ordendecompra
+   where (producto.codigoProducto=ordendecompra.Producto_codigoProducto)
+   group by producto.codigoProducto
+   order by nombreProducto asc;
+   
+select distinct nombreProducto from producto;
+
+   select empleado.nombreCompleto as Empleado , 
+   arl.nombreArl as NombreARL
+   from empleado,ARL
+   where(empleado.ARL_idARL=ARL.idARL);
+
+   select empleado.nombreCompleto as Empleado , 
+   eps.nombreEPS as NombreEPS
+   from empleado,EPS
+   where(empleado.EPS_idEPS=EPS.idEPS);
+
+   select empleado.nombreCompleto as Empleado , 
+   AFP.nombreAFP as NombreAFP
+   from empleado,AFP
+   where(empleado.AFP_idAFP=AFP.idAFP);
+
+select ordendecompra.CodigoOrden_idCodigoOrden as NumeroOrden , 
+   Producto.nombreProducto as Producto
+   from ordendecompra,Producto
+   where(ordendecompra.Producto_codigoProducto=producto.codigoProducto)
+   order by nombreProducto asc;
+
+SELECT CodigoOrden_idCodigoOrden,fecha,item,Producto_codigoProducto FROM ordendecompra
+ INNER JOIN producto WHERE ordendecompra.Producto_codigoProducto= producto.codigoProducto;
+
+
+ select nombreProducto as Producto, count(CodigoOrden_idCodigoOrden)as ordendecompra
+         from Producto,ordendecompra
+             where(producto.codigoProducto=ordendecompra.Producto_codigoProducto)
+             group by Producto.nombreProducto;
+
+select FichaTecnica.descripcion,codigoFicha,duracion,valorTotalProyecto from FichaTecnica 
+INNER JOIN Obra where FichaTecnica.Obra_codigoObra=Obra.codigoObra;
+
+select contratante,obra.descripcion,nombreObra from obra 
+INNER JOIN fichatecnica where Obra.codigoObra=FichaTecnica.Obra_codigoObra;
+
+
+  select nombreObra,avg(valorTotalProyecto) as Promedio
+   from obra,fichatecnica
+   where (obra.codigoObra=fichatecnica.Obra_codigoObra)
+   group by obra.codigoObra
+   order by nombreObra asc;
+
+
+SELECT nombreProveedor,direccion,telefono,contactoVenta from Proveedor
+INNER JOIN Proveedor_has_Producto where Proveedor.NIT=Proveedor_has_Producto.Proveedor_NIT;
+
+select cast( fecha as date )as Dia, count(fecha) as total
+from ordendecompra
+group by cast(fecha as date);
+
+select cast(FechaNacimiento as date) from empleado;
+
+select cast(FechaNacimiento as date) from empleado where fechaNacimiento>='1985-01-01';
+
+select Item,descripcionProducto,unidad,cantidad from solicituddematerial
+INNER JOIN solicituddematerial_has_cliente 
+where solicituddematerial_has_cliente.solicituddematerial_codigosolicitud_idcodigosolicitud=solicituddematerial.codigosolicitud_idcodigosolicitud;
+
+select count(*)empleado_documento,count(*)fichatecnica_codigoficha from empleado_has_fichatecnica
+INNER JOIN fichatecnica where empleado_has_fichatecnica.fichatecnica_codigoficha=fichatecnica.codigoficha;
+
+
+select empleado_documento as documento,count(*)fichatecnica_codigoficha from empleado_has_fichatecnica
+inner join empleado where empleado.documento=empleado_has_fichatecnica.empleado_documento;
