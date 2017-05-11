@@ -73,12 +73,19 @@ if ($_SESSION['estado']==0) {
       <li><a href="consultaCargo1.php">Cargo</a></li>
       <li><a href="#">Ficha tecnica</a></li>
       <li role="separator" class="divider"></li>
-      <li><a href="#">kardex</a></li>
+            <li class="dropdown-submenu">
+        <a class="test" tabindex="-1" href="#">Kardex<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a tabindex="-1" href="#">Solicitud de material</a></li>
+          <li><a tabindex="-1" href="#">Orden de compra</a></li>
+          <li><a tabindex="-1" href="#">Remision de material</a></li>
+        </ul>
+      </li>
       <li><a href="producto.php">Producto</a></li>
       <li><a href="verProveedor1.php">Proveedor</a></li>
     </ul>
       </li> 
-       <li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span>Reportes<span class="caret"></a>
+      <!--<li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span>Reportes<span class="caret"></a>
       <ul class="dropdown-menu" role="Menu" >
       <li><a href="reporte Producto.php">Producto</a></li> 
       <li><a href="reporteProveedor.php">Proveedor</a></li>
@@ -86,7 +93,7 @@ if ($_SESSION['estado']==0) {
       <li role="separator" class="divider"></li>
       <li><a href="">Ficha tecnica</a></li>
     </ul>
-    </li>
+    </li>-->
       <li  class="active" ><a href="#" data-toggle="dropdown" >Producto<span class="caret"></a>
   <ul class="dropdown-menu" role="Menu" >
     <li><a href="producto.php" >Producto</span></a></li> 
@@ -106,7 +113,7 @@ if ($_SESSION['estado']==0) {
      <li><i style="margin-top:10px;margin-left:15px; " class="fa fa-power-off fa-2x" aria-hidden="true" data-toggle="dropdown"></i>
     <ul class="dropdown-menu" role="Menu" >
     <li><a href="#"  data-toggle="dropdown">Informacion Personal</a></li> 
-    <li><a href="modificarContrasena1.php">Cambiar contraseÃ±a</a></li>
+    <li><a href="modificarContrasena1.php">Cambiar contraseña</a></li>
     <li><a href="#">fvgbhj</a></li>
     <li role="separator" class="divider"></li>
     <li><a href="cerrarSesion.php">Cerrar sesion</a></li>
@@ -185,11 +192,7 @@ while ($reg=$registros->fetch_array())
   
   ?>
   <td>
-  <?php
-echo '<a href="modificarEmpleado.php?Documento='.$reg['Documento'].'" class="btn btn-sm btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>';
-?>
-        <a href="" id="<?php echo $reg["Documento"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado">modificar</a>
-
+        <a href="" id="<?php echo $reg["Documento"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
     <button id="<?php echo $reg["Documento"];?>" name="eliminar" class="btn btn-sm btn-danger">
     <i class="fa fa-trash-o" aria-hidden="true"></i>
     </button>
@@ -206,10 +209,7 @@ echo "</div>";
 $jorge->close();
 
  ?>
-  <?php  
-     include('../Crud/md_modificarEmple.php');
-  include('../Crud/md_agregar.php');
-  ?>
+
   <br>
   <br>
   <br>
@@ -222,8 +222,21 @@ $jorge->close();
 </center>
 </fieldset>  
 </section>
+  <?php  
+     include('../Crud/md_modificarEmple.php');
+  include('../Crud/md_agregar.php');
+  ?>
 <script src="../js/jquery.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/modals.js"></script>
+    <script>
+    $(document).ready(function(){
+      $('.dropdown-submenu a.test').on("click", function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
+    </script>
 </body>
 </html>
