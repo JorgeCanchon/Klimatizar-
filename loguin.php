@@ -5,7 +5,7 @@
       <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0">
       <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Klimatizar</title>
-      <link rel="shortcut icon" href="../images/LOGO KLIMACOL.jpg" type="image/x-icon" >
+      <link   rel="shortcut icon" href="../images/LOGOKLIMACOL.jpg" type="image/x-icon" >
       <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
       <link rel="stylesheet" type="text/css" href="../css/estilo.css">
       <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -61,15 +61,15 @@ footer{
                 <a href="#"><img src="../images/cropped-MENU1-1.png" alt="sistemas  de aire acondicionado"  class="img-responsive" alt="Imagen responsive"/></a>
                   <div class="name-box">
                       <a href="index.html"><h1 class="site-name">sistemas  de aire acondicionado</h1></a>
-                        <span class="site-tagline">Asesoría, diseño,  mantenimiento, suministro e  instalación de sistemas  de aire acondicionado, enfriamiento evaporativo  y  ventilación mecánica.</span>
+                        <span class="site-tagline">Asesor&iacutea, dise&ntildeo,  mantenimiento, suministro e  instalaci&oacuten de sistemas  de aire acondicionado, enfriamiento evaporativo  y  ventilaci&oacuten mec&aacutenica.</span>
                   </div>
         
       </div>
 		<article style="margin-top: 1.5cm;">
-<form id="signup" method="POST" action="../controlers/validarUsuario.php" >
+<form id="signup" method="POST" action="../controlers1/validarUsuario.php" >
 
 		        <div class="header" align="center">      
-		            <h3>Iniciar sesión</h3>            
+		            <h3>Iniciar sesi&oacuten</h3>            
 		        </div>
 		    <div class="sep" align="center"></div>
 		        <div class="inputs">
@@ -87,7 +87,7 @@ footer{
   <footer style="margin-top: 8cm;">
       <div >
            <div class="footer-info">
-             Síguenos a tráves de |
+             S&iacuteguenos a tr&aacuteves de |
           <a href="https://www.facebook.com"><img src="../images/Facebook.ico" width="40" height="40"> </a>
 
           <a href="https://www.twitter.com"><img src="../images/twitter.ico" width="40" height="40"> </a>
@@ -97,7 +97,7 @@ footer{
           <a href="https://www.google.com"> </a>
           <br>
           <br> 
-            <div id="copyright"><h5>Sistema de Informaciòn para la Gestión de Proyectos e Inventarios | Todos Los Derechos Reservados | </h5><span class="fa fa-copyright"> Powered by <a href="https://www.facebook.com/jorgeluis.canchonespinosa" target="_blank">ADSI.SOFT</a>. Designed by <a href="https://www.facebook.com/jorgeluis.canchonespinosa">ADSI.SOFT</a>.</span> 
+            <div id="copyright"><h5>Sistema de Informaci&oacuten para la gesti&oacuten de Proyectos e Inventarios | Todos Los Derechos Reservados | </h5><span class="fa fa-copyright"> Powered by <a href="https://www.facebook.com/jorgeluis.canchonespinosa" target="_blank">ADSI.SOFT</a>. Designed by <a href="https://www.facebook.com/jorgeluis.canchonespinosa">ADSI.SOFT</a>.</span> 
                Copyright 2016 
            </div>
           </div>    
@@ -107,4 +107,3 @@ footer{
 <script src="../js/bootstrap.min.js"></script>                   
 </body>
 </html>
-

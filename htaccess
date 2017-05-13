@@ -1,0 +1,15 @@
+# HTID:1175897: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
+php_value display_errors 1
+# Hacer que el codigo PHP parezca como otro tipo de codigo
+AddType application/x-httpd-php .asp .py .pl
+# DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:1175897:
+# Hacer que el codigo PHP parezca como de tipos desconocidos
+AddType application/x-httpd-php .bop .foo .133t
+#Options-Indexes
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
