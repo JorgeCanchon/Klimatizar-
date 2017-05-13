@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 session_start();
 if ($_SESSION['estado']==0) {
   header("Location:../publicidad/loguin.php");
@@ -16,6 +15,10 @@ if ($_SESSION['estado']==0) {
       <link   rel="shortcut icon" href="../images/LOGO KLIMACOL.jpg" type="image/x-icon">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/estilo.css" rel="stylesheet">
+    <style type="text/css">
+      
+      .jumbotron{padding-top:30px;padding-bottom:30px;margin-bottom:30px;color:inherit;background-color:#eee}.jumbotron .h1,.jumbotron h1{color:inherit}.jumbotron p{margin-bottom:15px;font-size:21px;font-weight:200}.jumbotron>hr{border-top-color:#d5d5d5}.container .jumbotron,.container-fluid .jumbotron{padding-right:15px;padding-left:15px;border-radius:6px}.jumbotron .container{max-width:100%}@media screen and (min-width:768px){.jumbotron{padding-top:48px;padding-bottom:48px}.container .jumbotron,.container-fluid .jumbotron{padding-right:60px;padding-left:60px}.jumbotron .h1,.jumbotron h1{font-size:63px}}
+    </style>
   </head>
     <body>
  <div class="container">
@@ -122,117 +125,45 @@ if ($_SESSION['estado']==0) {
       </div>
   <br>
   <br>
-  <br>
-    <div class="container">
-      <div class="col-md-2 col-md-offset-10">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#inst_Persona"> 
-          Agregar
-          <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-        </button>
-      </div><!-- /.span -->
-    </div>
-  <br>
-  <br>
-
-  <section class="contenedor">
-  <fieldset>
-  <legend><h1 style="color:black;">LISTADO EMPLEADOS</h1></legend> 
-<?php 
-include 'function.php';
- ?>
-<?php 
-$jorge=conectar();
-$page = (int) (!isset($_GET["page"]) ? 1 : $_GET["page"]);
-      $limit = 5; //if you want to dispaly 10 records per page then you have to change here
-      $startpoint = ($page * $limit) - $limit;
-      $statement = " empleado  order by NombreCompleto asc"; //you have to pass your query over here
-
-$registros=$jorge->query(" SELECT * FROM ViewConsultaEmpleado LIMIT {$startpoint} , {$limit}");
-echo '<div class="table-responsive">';
-echo '<table class="table table-bordered table-hover">';
-echo '<tr><th><center>DOCUMENTO</center></th><th><center>NOMBRE</center></th><th><center>DIRECCION</center></th><th><center>TELEFONO</center></th><th><center>E-MAIL</center></th><th><center>FECHA NACIMIENTO</center></th><th><center>CARGO</center></th><th><center>EPS</center></th><th><center>ARL</center></th><th><center>AFP</center></th><th width="7%"> </th></tr>';
-while ($reg=$registros->fetch_array())
-{
-  echo '<tr>';
-  echo '<td>';
-  ECHO '<center>';
-  echo $reg['Documento'];
-  echo '</td>';
-  echo '<td>';
-  ECHO '<center>';
-  echo $reg['Nombre'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['Direccion'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['Telefono'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['Correo'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['FechaNacimiento'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['Cargo'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['EPS'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['ARL'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['AFP'];
-  echo '</td>';
-  
-  ?>
-  <td>
-        <a href="" id="<?php echo $reg["Documento"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-    <button id="<?php echo $reg["Documento"];?>" name="eliminar" class="btn btn-sm btn-danger">
-    <i class="fa fa-trash-o" aria-hidden="true"></i>
-    </button>
-    </td>
-  <?php
-  echo '</tr>';
-}
-echo '</table>';
-echo " </div>";
-echo '<br>';
-echo '<div id="pagingg">';
-echo pagination($statement,$limit,$page);
-echo "</div>";
-$jorge->close();
-
- ?>
-  <br>
-  <br>
-  <br>
+<div class="container">
+  <div class="jumbotron">
+      <form method="POST" action="consultaCodigoEmple.php">
+      <p>Ingrese el Documento del
+ Empleado a consultar:</p>
+      <input type="number" name="Documento" id="docu"  placeholder="Documento"  required>
 <br>
 <br>
-<center>
-<form action="Principal.php">
-  <input type="submit" value="volver" style="border-radius:5px;margin-left:155px;" class="btn btn-primary">
+        <input class="btn btn-primary" type="submit" value="Consultar">
+        <input type="reset" class="btn btn-primary" value="Reset">
 </form>
-</center>
-</fieldset>  
-</section>
-  <?php  
-     include('../Crud/md_modificarEmple.php');
-  include('../Crud/md_agregar.php');
-  ?>
+      </div>
+<br>
+<form action="Principal.php">
+<center>
+  <input type="submit" value="volver"  class="btn btn-primary">
+  </center>
+</form>
+</div> <!-- /container -->
+</div>
 <script src="../js/jquery.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="../js/modals.js"></script>
-    <script>
-    $(document).ready(function(){
+<script type="text/javascript">
+    function validar() {
+      var doc = document.getElementById('docu').value;
+        if (doc == "") {
+          alert("Documento invalido, se encuentra vacio ");
+        }else{
+          
+            window.location="consultaCodigoEmple.php?doc";           
+          }
+        }
+            $(document).ready(function(){
       $('.dropdown-submenu a.test').on("click", function(e){
         $(this).next('ul').toggle();
         e.stopPropagation();
         e.preventDefault();
       });
     });
-    </script>
+</script>
 </body>
 </html>
