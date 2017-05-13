@@ -1,0 +1,45 @@
+#pagingg ul.pagination{
+	margin:0px;
+	padding:0px;
+	height:100%;
+	overflow:hidden;
+	font:12px 'Tahoma';
+	list-style-type:none;
+	color:blue;	
+}
+
+#pagingg ul.pagination li.details{
+    padding:7px 10px 7px 10px;
+    font-size:14px;
+}
+
+
+
+#pagingg ul.pagination li{
+	float:left;
+	margin:0px;
+	padding:0px;
+	margin-left:5px;
+	
+}
+
+#pagingg ul.pagination li:first-child{
+	margin-left:0px;
+}
+
+#pagingg ul.pagination li a{
+	display:block;
+	text-decoration:none;
+	padding:7px 10px 7px 10px;
+	color:blue;
+    border: 1px solid #7C7C7C;
+    border-radius: 3px;
+    background-color:#FAFAFA solid;
+
+	
+}
+
+#pagingg ul.pagination li a img{
+	border:none;
+}	
+	
