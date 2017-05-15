@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-05-2017 a las 12:39:15
+-- Tiempo de generación: 15-05-2017 a las 20:04:44
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 7.0.10
 
@@ -70,20 +70,22 @@ CREATE TABLE `cargo` (
   `codigoCargo` int(11) NOT NULL,
   `NombreCargo` varchar(45) NOT NULL,
   `Descripcion` varchar(100) NOT NULL,
-  `visibilidad` tinyint(4) NOT NULL DEFAULT '1'
+  `visibilidad` tinyint(4) NOT NULL DEFAULT '1',
+  `fechaInicio` datetime DEFAULT NULL,
+  `fechaFin` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `cargo`
 --
 
-INSERT INTO `cargo` (`codigoCargo`, `NombreCargo`, `Descripcion`, `visibilidad`) VALUES
-(1, 'Gerente A/tiva y Financiera ', 'NULL', 1),
-(2, 'Ingeniero de Proyectos', 'NULL', 1),
-(3, 'Auxiliar de Refregeracion', 'NULL', 1),
-(4, 'Auxiliar de Obra', 'NULL', 1),
-(5, 'Tecnico Refrieracion', 'NULL', 1),
-(6, 'Tecnico Refrigeracion', 'NULL', 1);
+INSERT INTO `cargo` (`codigoCargo`, `NombreCargo`, `Descripcion`, `visibilidad`, `fechaInicio`, `fechaFin`) VALUES
+(1, 'Gerente A/tiva y Financiera ', 'NULL', 1, NULL, NULL),
+(2, 'Ingeniero de Proyectos', 'NULL', 1, NULL, NULL),
+(3, 'Auxiliar de Refregeracion', 'NULL', 1, NULL, NULL),
+(4, 'Auxiliar de Obra', 'NULL', 1, NULL, NULL),
+(5, 'Tecnico Refrieracion', 'NULL', 1, NULL, NULL),
+(6, 'Tecnico Refrigeracion', 'NULL', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,6 +152,7 @@ INSERT INTO `empleado` (`Documento`, `NombreCompleto`, `Direccion`, `Telefono`, 
 ('1020831720', 'Jorge luis canchon espinosa', 'kr 6a n188 c36 int1', '1234', 'jlcanchon@misena.edu.co', '2016-12-26', 2, 1, 1, 1, 1),
 ('1074616890', 'PRIETO CRISTIAN YESID', ' Cra 1 No. 83-23 ', '3016799658', 'NULL', '1998-01-02', 4, 1, 1, 1, 1),
 ('1084576463', 'LOPEZ COLLAZOS DILBER ANDRES', ' Calle 23B # 97-18 ', '3019419', 'jlcanchon@misena.edu.co', '1987-09-16', 1, 1, 1, 1, 1),
+('11111', '1', '1', '122222', 'jorge@ghn.co', '2017-05-13', 1, 1, 1, 1, 0),
 ('1111785903', 'MINOTTA RENTERIA JOHAN ANDRES', 'NULL', 'NULL', 'NULL', '1991-08-22', 5, 2, 1, 2, 1),
 ('15648017', 'RIVERO MIRANDA MAURICIO JOSE', ' Cra 79 D # 58 C -27 Sur ', '317 512 15 89', 'NULL', '1983-05-12', 5, 2, 1, 1, 1),
 ('39016339', 'GOMEZ ORTIZ NEYDIS', ' Cra. 53C # 134-29 Int. 6 Ap 303 ', '3014011', 'jlcanchon@misena.edu.co', '1973-12-28', 1, 4, 1, 2, 1),
@@ -189,9 +192,6 @@ INSERT INTO `eps` (`idEPS`, `nombreEPS`, `visibilidad`) VALUES
 CREATE TABLE `fichatecnica` (
   `codigoFicha` int(11) NOT NULL,
   `Descripcion` varchar(100) NOT NULL,
-  `fechaInicio` date NOT NULL,
-  `fechaFin` date NOT NULL,
-  `duracion` varchar(45) NOT NULL,
   `valorTotalProyecto` double NOT NULL,
   `Obra_codigoObra` varchar(15) NOT NULL,
   `Empleado_Documento` varchar(30) NOT NULL,
@@ -202,16 +202,16 @@ CREATE TABLE `fichatecnica` (
 -- Volcado de datos para la tabla `fichatecnica`
 --
 
-INSERT INTO `fichatecnica` (`codigoFicha`, `Descripcion`, `fechaInicio`, `fechaFin`, `duracion`, `valorTotalProyecto`, `Obra_codigoObra`, `Empleado_Documento`, `visibilidad`) VALUES
-(1, 'INSTALACION SISTEMA AIRE ACONDICIONADO', '2015-08-01', '2015-10-01', '2 meses', 20000000, '15_137', '39016339', 1),
-(2, 'INSTALACION SISTEMA AIRE ACONDICIONADO', '2016-06-16', '2016-10-16', '4 meses', 30000000, '16_316', '39016339', 1),
-(3, 'SUMINISTRO E INSTALACION SISTEMA AIRE ACONDICIONADO', '2014-02-16', '2014-04-16', '2 meses', 25000000, '16_333', '39016339', 1),
-(4, 'SUMINISTRO E INSTALACION SISTEMA AIRE ACONDICIONADO', '2015-03-22', '2015-06-22', '3 meses', 15000000, '16_229', '39016339', 1),
-(5, 'INSTALACION SISTEMA AIRE ACONDICIONADO', '2016-08-16', '2016-10-16', '2 meses', 18000000, '16_233', '39016339', 1),
-(6, 'INSTALACION SISTEMA AIRE ACONDICIONADO', '2016-10-06', '2016-12-06', '2 meses', 32000000, '16_232', '39016339', 1),
-(7, 'INSTALACION SISTEMA AIRE ACONDICIONADO', '2016-12-19', '2017-01-19', '1 mes', 32000000, '16_333', '39016339', 1),
-(8, 'SUMINISTRO E INSTALACION SISTEMA AIRE ACONDICIONADO', '2017-02-20', '2017-04-20', '2 meses', 20000000, '16_231', '39016339', 1),
-(9, 'SUMINISTRO E INSTALACION SISTEMA AIRE ACONDICIONADO', '2017-04-16', '2017-07-16', '3 meses', 23900000, '16_230', '39016339', 1);
+INSERT INTO `fichatecnica` (`codigoFicha`, `Descripcion`, `valorTotalProyecto`, `Obra_codigoObra`, `Empleado_Documento`, `visibilidad`) VALUES
+(1, 'INSTALACION SISTEMA AIRE ACONDICIONADO', 20000000, '15_137', '39016339', 1),
+(2, 'INSTALACION SISTEMA AIRE ACONDICIONADO', 30000000, '16_316', '39016339', 1),
+(3, 'SUMINISTRO E INSTALACION SISTEMA AIRE ACONDICIONADO', 25000000, '16_333', '39016339', 1),
+(4, 'SUMINISTRO E INSTALACION SISTEMA AIRE ACONDICIONADO', 15000000, '16_229', '39016339', 1),
+(5, 'INSTALACION SISTEMA AIRE ACONDICIONADO', 18000000, '16_233', '39016339', 1),
+(6, 'INSTALACION SISTEMA AIRE ACONDICIONADO', 32000000, '16_232', '39016339', 1),
+(7, 'INSTALACION SISTEMA AIRE ACONDICIONADO', 32000000, '16_333', '39016339', 1),
+(8, 'SUMINISTRO E INSTALACION SISTEMA AIRE ACONDICIONADO', 20000000, '16_231', '39016339', 1),
+(9, 'SUMINISTRO E INSTALACION SISTEMA AIRE ACONDICIONADO', 23900000, '16_230', '39016339', 1);
 
 -- --------------------------------------------------------
 
@@ -436,6 +436,18 @@ CREATE TABLE `remisionmaterial` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE `rol` (
+  `idRol` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `visibilidad` int(11) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `solicituddematerial`
 --
 
@@ -473,15 +485,69 @@ CREATE TABLE `usuario` (
   `Contrasena` varchar(80) NOT NULL,
   `Empleado_Documento` varchar(30) NOT NULL,
   `time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `visibilidad` tinyint(4) NOT NULL DEFAULT '1'
+  `visibilidad` tinyint(4) NOT NULL DEFAULT '1',
+  `codRol` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `Usuario`, `Contrasena`, `Empleado_Documento`, `time`, `visibilidad`) VALUES
-(1, '1020831720', '$2y$10$oFCpWCy1756DgOgqVn0aze3Z1lmrzV7emlGu9BoZACsTd0sq7CWFG', '1020831720', '2016-12-26 22:31:52', 1);
+INSERT INTO `usuario` (`idUsuario`, `Usuario`, `Contrasena`, `Empleado_Documento`, `time`, `visibilidad`, `codRol`) VALUES
+(1, '1020831720', '$2y$10$oFCpWCy1756DgOgqVn0aze3Z1lmrzV7emlGu9BoZACsTd0sq7CWFG', '1020831720', '2017-05-05 13:36:17', 1, NULL),
+(2, '11111', '$2y$10$ziBwoKMLVY8D79JHVR/UqOXsL5U6ZGoaG4f7zjXMH9.V/OOIXiw4G', '11111', '2017-05-09 23:38:56', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `viewconsultaempleado`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `viewconsultaempleado` (
+`Documento` varchar(30)
+,`visibilidad` tinyint(4)
+,`Nombre` varchar(45)
+,`Direccion` varchar(40)
+,`Telefono` varchar(30)
+,`Correo` varchar(45)
+,`FechaNacimiento` date
+,`Cargo` varchar(45)
+,`EPS` varchar(45)
+,`ARL` varchar(45)
+,`AFP` varchar(45)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `viewreporteproducto`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `viewreporteproducto` (
+`codigoProducto` varchar(45)
+,`nombreProducto` varchar(100)
+,`cantidad` int(11)
+,`unidad` varchar(45)
+,`valorUnitario` double
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `viewconsultaempleado`
+--
+DROP TABLE IF EXISTS `viewconsultaempleado`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `viewconsultaempleado`  AS  select `empleado`.`Documento` AS `Documento`,`empleado`.`visibilidad` AS `visibilidad`,`empleado`.`NombreCompleto` AS `Nombre`,`empleado`.`Direccion` AS `Direccion`,`empleado`.`Telefono` AS `Telefono`,`empleado`.`Correo` AS `Correo`,`empleado`.`FechaNacimiento` AS `FechaNacimiento`,`cargo`.`NombreCargo` AS `Cargo`,`eps`.`nombreEPS` AS `EPS`,`arl`.`nombreARL` AS `ARL`,`afp`.`nombreAFP` AS `AFP` from ((((`empleado` join `cargo` on((`cargo`.`codigoCargo` = `empleado`.`Cargo_codigoCargo`))) join `eps` on((`eps`.`idEPS` = `empleado`.`EPS_idEPS`))) join `arl` on((`arl`.`idARL` = `empleado`.`ARL_idARL`))) join `afp` on((`afp`.`idAFP` = `empleado`.`AFP_idAFP`))) where (`empleado`.`visibilidad` = 1) order by `empleado`.`NombreCompleto` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `viewreporteproducto`
+--
+DROP TABLE IF EXISTS `viewreporteproducto`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `viewreporteproducto`  AS  select `producto`.`codigoProducto` AS `codigoProducto`,`producto`.`nombreProducto` AS `nombreProducto`,`producto`.`cantidad` AS `cantidad`,`producto`.`unidad` AS `unidad`,`producto`.`valorUnitario` AS `valorUnitario` from `producto` order by `producto`.`codigoProducto` ;
 
 --
 -- Índices para tablas volcadas
@@ -593,6 +659,12 @@ ALTER TABLE `remisionmaterial`
   ADD KEY `Cliente_codigoCliente` (`Cliente_codigoCliente`);
 
 --
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`idRol`);
+
+--
 -- Indices de la tabla `solicituddematerial`
 --
 ALTER TABLE `solicituddematerial`
@@ -649,6 +721,11 @@ ALTER TABLE `eps`
 ALTER TABLE `fichatecnica`
   MODIFY `codigoFicha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `solicituddematerial`
 --
 ALTER TABLE `solicituddematerial`
@@ -657,7 +734,7 @@ ALTER TABLE `solicituddematerial`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Restricciones para tablas volcadas
 --
