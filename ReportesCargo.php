@@ -2,11 +2,11 @@
 require_once('../lib/pdf/mpdf.php');
 
 $conn = new mysqli('localhost', 'root', '', 'klimatizar');//CONECCION BD
-$query ="SELECT * FROM producto";//CONSULTA EN LA BD
+$query ="SELECT * FROM cargo";//CONSULTA EN LA BD
 $prepare = $conn->prepare($query);
 $prepare->execute();
 $resultSet = $prepare->get_result();
-while($producto[] = $resultSet->fetch_array());
+while($cargo[] = $resultSet->fetch_array());
 $resultSet->close();
 $prepare->close();
 $conn->close();
@@ -37,25 +37,20 @@ $html ='<header class="clearfix">
       <table>
         <thead>
           <tr>
-           <th class="Codigo Producto">Codigo Producto</th>
-            <th class="Nombre del Producto">Nombre del Producto</th>
-            <th>Cantidad</th>
-            <th>Unidad</th>
-            <th>Valor Unitario</th>
+           <th class="Codigo Cargo">Codigo Cargo</th>
+            <th class="Nombre Cargo">NombreCargo</th>
+            <th>Descripcion</th>
             <th>Visibilidad</th>
             </tr>
           </thead>
           <tbody>';
-          foreach ($producto as $productos) {
+          foreach ($cargo as $cargos) {
         	$html .='<tr>
-           	<td class="Codigo Producto">'.$productos['codigoProducto'].'</td>
-        	<td class="Nombre del Producto">'.$productos['nombreProducto'].'</td>
-        	<td class="Cantidad">'.$productos['cantidad'].'</td>
-        	<td class="Unidad">'.$productos['unidad'].'</td>
-        	<td class="Valor Unitario">'.$productos['valorUnitario'].'</td>
-        	<td class="Visibilidad">'.$productos['visibilidad'].'</td>
-        	
-          	</tr>';
+           	<td class="Codigo Cargo">'.$cargos['codigoCargo'].'</td>
+        	<td class="Nombre Cargo">'.$cargos['NombreCargo'].'</td>
+        	<td class="Descripcion">'.$cargos['Descripcion'].'</td>
+        	<td class="Visibilidad">'.$cargos['visibilidad'].'</td>
+        	</tr>';
         	}
  			$html .='
 			</tbody>
