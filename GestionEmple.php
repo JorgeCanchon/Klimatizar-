@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 session_start();
 if ($_SESSION['estado']==0) {
   header("Location:../publicidad/loguin.php");
@@ -12,7 +11,6 @@ if ($_SESSION['estado']==0) {
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Klimatizar-Empleado</title>
       <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
-
       <link   rel="shortcut icon" href="../images/LOGO KLIMACOL.jpg" type="image/x-icon">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/estilo.css" rel="stylesheet">
@@ -43,17 +41,18 @@ if ($_SESSION['estado']==0) {
         <ul class="dropdown-menu">
           <li><a tabindex="-1" href="GestionEmple.php">Listado</a></li>
             <li role="separator" class="divider"></li>
-          <li><a tabindex="-1" href="cosultaEmpleado.php">Buscar Documento</a></li>
+          <li><a tabindex="-1" href="cosultaEmpleado.php">Buscar codigo</a></li>
         </ul>
       </li>
-            <li><a  href="RegistrarCargo.php">Cargo</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Regular link</a></li>
-            <li><a class="dropdown-item disabled" href="#">Disabled link</a></li>
-            <li><a class="dropdown-item" href="#">Another link</a></li>
-          </ul>
+               <li class="dropdown-submenu">
+        <a class="test" tabindex="-1" href="#">cargo<span  class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a tabindex="-1" href="Cargo1.php">Listado</a></li>
+            <li role="separator" class="divider"></li>
+          <li><a tabindex="-1" href="consultaCargo.php">Buscar Documento</a></li>
+        </ul>
       </li>
-      <li><a  href="#" class="dropdown-item disabled">Something else here</a></li>
+      </li>
                 </ul>
               </li>
       <li  class="active"><a data-toggle="dropdown"  href="fichaTecnica.php"><span class="fa fa-cog fa-spin fa-1x fa-fw"></span> Ficha Tecnica  <span class="caret"></span></a>
@@ -147,7 +146,7 @@ $page = (int) (!isset($_GET["page"]) ? 1 : $_GET["page"]);
       $startpoint = ($page * $limit) - $limit;
       $statement = " empleado  order by NombreCompleto asc"; //you have to pass your query over here
 
-$registros=$jorge->query(" SELECT * FROM ViewConsultaEmpleado LIMIT {$startpoint} , {$limit}");
+$registros=$jorge->query("SELECT * FROM ViewConsultaEmpleado where Documento != '$_SESSION[empleado]' LIMIT {$startpoint} , {$limit}");
 echo '<div class="table-responsive">';
 echo '<table class="table table-bordered table-hover">';
 echo '<tr><th><center>DOCUMENTO</center></th><th><center>NOMBRE</center></th><th><center>DIRECCION</center></th><th><center>TELEFONO</center></th><th><center>E-MAIL</center></th><th><center>FECHA NACIMIENTO</center></th><th><center>CARGO</center></th><th><center>EPS</center></th><th><center>ARL</center></th><th><center>AFP</center></th><th width="7%"> </th></tr>';
@@ -219,7 +218,7 @@ $jorge->close();
 </fieldset>  
 </section>
   <?php  
-     include('../Crud/md_modificarEmple.php');
+  include('../Crud/md_modificarEmple.php');
   include('../Crud/md_agregar.php');
   ?>
 <script src="../js/jquery.js"></script>
