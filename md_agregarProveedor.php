@@ -46,7 +46,7 @@ if ($_SESSION['estado']==0) {
             <div class="form-group">
               <label class="col-sm-3 control-label">Contacto de ventas</label>
               <div class="col-sm-8">
-                <input type="text" min=0 class="form-control" placeholder="Ingrese contacto" name="contacto" pattern="[A-Za-z]{30}" required>
+                <input type="text" class="form-control" placeholder="Ingrese contacto" name="contacto"  required>
               </div>
             </div>
             <!-- EMAIL -->

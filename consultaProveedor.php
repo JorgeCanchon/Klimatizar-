@@ -7,160 +7,131 @@ if ($_SESSION['estado']==0) {
 <!DOCTYPE html>
 <html lang="es">
   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Klimatizar-Proveedor</title>
-      <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
-      <link rel="stylesheet" type="text/css" href="../css/estilos.css">
-      <link   rel="shortcut icon" href="../images/LOGO KLIMACOL.jpg" type="image/x-icon">
-      <link rel="stylesheet" href="../css/bootstrap.min.css">
-      <style type="text/css">
-        body {
-          background-color: gray 
-        }
-    .tablalistado{
-      border-collapse: collapse;
-      box-shadow: 0px 0px 8px #000;
-      margin: auto;
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Klimatizar-Proveedor</title>
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
+    <link rel="shortcut icon" href="../images/LOGO KLIMACOL.jpg" type="image/x-icon">
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/estilo.css" rel="stylesheet">
+    <style type="text/css">
+       .navbar-default {
+    background-color: #337ab7;
     }
-    .tablalistado th{
-      border:1px solid #6A9E98;
-      background-color: #fff; 
+    body {
+     background-color:#eee;
     }
-    .tablalistado td{
-      border: 1px solid #000;
-      padding: 5px;
-      background-color: #ffdd73; 
-    }
-    .contenedor {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  margin: auto;
-  background-color:gray;
-  width: auto;
-
-}
-@media (min-width: 768px) {
-  .contenedor {
-    width: 750px;
-  }
-}
-@media (min-width: 992px) {
-  .contenedor {
-    width: 970px;
-  }
-}
-@media (min-width: 1200px) {
-  .contenedor {
-    width: 1170px;
-  }
-}
-.contenedor-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-      </style>
+    </style>
   </head>
     <body>
-    <section class="heade" >
-  <div class="head">
-    <ul class="nav nav-pills"  >
-      <li><img src="../images/LOGO KLIMACOL.jpg" style="border-radius:5px;width: 100px;margin: 10px;"></li>
-      <li style="visibility: hidden;">-</li>
-      <li  class="active"><a href="Principal.php"><span class="fa fa-home fa-fw"></span>Home</a></li>
-      <li  class="active" ><a href="#" data-toggle="dropdown"  ><span  class="fa fa-user bigicon"></span>  Gestion de Empleados 
+      <div class="contenedor">
+          <nav class="navbar navbar-default">
+            <div class="head">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Navegacion</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
+              </button>
+                    <a class="navbar-brand" href="#"><i style="margin-top:-15px;margin-left:10px;"  class="fa fa-globe fa-2x"></i></a>
+            </div>
+           <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li  class="active"><a href="Principal.php"><span class="fa fa-home fa-fw"></span>Home</a></li>
+              <!--Gestion de empleados-->
+                <li  class="active" ><a href="#" data-toggle="dropdown"  ><span  class="fa fa-user"></span>  Gestion de Empleados 
       <span class="caret"></span></a>
     <ul class="dropdown-menu" role="Menu" >
-    <li><a href="Registrar empleado.php" >Registrar Empleado</span></a></li> 
-      <li><a  href="RegistrarCargo.php">Registrar Cargo</a>
+   <li class="dropdown-submenu">
+        <a class="test" tabindex="-1" href="#">Empleado<span  class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Regular link</a></li>
-          <li><a class="dropdown-item disabled" href="#">Disabled link</a></li>
-          <li><a class="dropdown-item" href="#">Another link</a></li>
+          <li><a tabindex="-1" href="GestionEmple.php">Listado</a></li>
+            <li role="separator" class="divider"></li>
+          <li><a tabindex="-1" href="cosultaEmpleado.php">Buscar Empleado</a></li>
         </ul>
       </li>
-    <li><a  href="#" class="dropdown-item disabled">Something else here</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a  href="#">Separated link</a></li>
-  </ul>
-  </li>
-      <li  class="active"><a data-toggle="dropdown"  href="fichaTecnica.php"><span class="fa fa-cog fa-spin fa-1x fa-fw"></span> Ficha Tecnica  <span class="caret"></span></a>
-    <ul class="dropdown-menu" role="Menu" >
-    <li><a href="#">Registrar obra</span></a></li> 
-     <li><a href="fichaTecnica.php">Registrar ficha tecnica</a></li>
-    <li><a href="#">Something else here</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="#">Separated link</a></li>
-  </ul>
-      <li  class="active"><a href="#"  data-toggle="dropdown"><span class="fa fa-check-square-o"></span> Kardex <span class="caret"></span></a>
-      <ul class="dropdown-menu" role="Menu" >
-        <li><a href="solicitudMaterial.php" >Solicitud de material</span></a></li> 
-          <li><a  href="RegistrarCargo.php">Orden de compra</a>
-              <li><a class="dropdown-item" href="#">Remision de material</a></li>
-          </li>
-      </ul>
-     </li>
-      <li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span> Consulta 
-      <span class="caret"></a>
-    <ul class="dropdown-menu" role="Menu" >
-      <li><a href="consultaEmpleado1.php">Empleado</span></a></li> 
-      <li><a href="consultaCargo1.php">Cargo</a></li>
-      <li><a href="#">Ficha tecnica</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a href="#">kardex</a></li>
-      <li><a href="producto.php">Producto</a></li>
-      <li><a href="verProveedor1.php">Proveedor</a></li>
-    </ul>
-      </li> 
-       <li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span>Reportes<span class="caret"></a>
-      <ul class="dropdown-menu" role="Menu" >
-      <li><a href="reporte Producto.php">Producto</a></li> 
-      <li><a href="reporteProveedor.php">Proveedor</a></li>
-      <li><a href="#">Kardex</a></li>
-      <li role="separator" class="divider"></li>
-      <li><a href="">Ficha tecnica</a></li>
-    </ul>
-    </li>
-      <li  class="active" ><a href="#" data-toggle="dropdown" >Producto<span class="caret"></a>
-  <ul class="dropdown-menu" role="Menu" >
-    <li><a href="producto.php" >Producto</span></a></li> 
-      <li><a  href="verProveedor1.php">Proveedor</a>
+                          <li class="dropdown-submenu">
+        <a class="test" tabindex="-1" href="#">Cargo<span  class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Regular link</a></li>
-          <li><a class="dropdown-item disabled" href="#">Disabled link</a></li>
-          <li><a class="dropdown-item" href="#">Another link</a></li>
+          <li><a tabindex="-1" href="Cargo1.php">Listado</a></li>
+            <li role="separator" class="divider"></li>
+          <li><a tabindex="-1" href="consultaCargo.php">Buscar Cargo</a></li>
         </ul>
       </li>
-    <li><a  href="#" class="dropdown-item disabled">Something else here</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a  href="#">Separated link</a></li>
-  </ul>
-      </li>
-      <li  class="active" style="visibility: hidden;"><a href="#">--</a></li>
 
-<div class="head1" class="derecha">
-    <ul class="nav nav-pills">
-      <li><img src="../images/sesion1.jpg" style="border-radius:55px;width: 50px;margin: 5px;" data-toggle="dropdown">
+                </ul>
+              </li>
+  </li>
+  <!--Termina Gestion de Empleados-->
+                  <li  class="active"><a data-toggle="dropdown"  href="#"><span class="fa fa-cog fa-spin fa-1x fa-fw"></span>Obra<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="Menu" >
+                <li><a href="#">Listado</span></a></li> 
+                 <li><a href="">Buscar obra</a></li>
+              </ul>
+                  <li  class="active"><a href="#"  data-toggle="dropdown"><span class="fa fa-check-square-o"></span> Kardex <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="Menu" >
+                    <li><a href="solicitudMaterial.php" >Solicitud de material</span></a></li> 
+                      <li><a  href="RegistrarCargo.php">Orden de compra</a>
+                          <li><a class="dropdown-item" href="#">Remision de material</a></li>
+                      </li>
+                  </ul>
+                 </li>
+
+                  <li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span> Consulta 
+                  <span class="caret"></a>
+                <ul class="dropdown-menu" role="Menu" >
+                  <li><a href="consultaEmpleado1.php">Empleado</span></a></li> 
+                  <li><a href="consultaCargo1.php">Cargo</a></li>
+                  <li><a href="#">Obra</a></li>
+                  <li role="separator" class="divider"></li>
+                   <li class="dropdown-submenu">
+        <a class="test" tabindex="-1" href="#">Kardex<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a tabindex="-1" href="#">Solicitud de material</a></li>
+          <li><a tabindex="-1" href="#">Orden de compra</a></li>
+          <li><a tabindex="-1" href="#">Remision de material</a></li>
+        </ul>
+      </li>
+                  <li><a href="producto.php">Producto</a></li>
+                  <li><a href="verProveedor1.php">Proveedor</a></li>
+                </ul>
+                  </li> 
+
+                  <!--Producto-->
+
+                  <li  class="active" ><a href="#" data-toggle="dropdown" >Producto<span class="caret"></a>
+              <ul class="dropdown-menu" role="Menu" >
+                  <li class="dropdown-submenu"><a class="test" tabindex="-1" href="#">Producto<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a tabindex="-1" href="#">Listado</a></li>
+                        <li><a tabindex="-1" href="#">Buscar producto</a></li>
+                      </ul>
+                  </li>
+                  <li class="dropdown-submenu"><a class="test" tabindex="-1" href="#">Proveedor<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a tabindex="-1" href="verProveedor2.php">Listado</a></li>
+                        <li><a tabindex="-1" href="#">Buscar producto</a></li>
+                      </ul>
+                  </li>
+              </ul>
+                  </li>
+      <ul class="nav navbar-nav">
+     <li><i style="margin-top:10px;margin-left:15px; " class="fa fa-power-off fa-2x" aria-hidden="true" data-toggle="dropdown"></i>
     <ul class="dropdown-menu" role="Menu" >
-    <li><a href="#"  data-toggle="dropdown">Informacion Personal</a></li> 
-    <li><a href="#">sdfgh</a></li>
-    <li><a href="#">fvgbhj</a></li>
+    <li><a href="ModificarInformacion.php" ><?php echo $_SESSION['usuario']; ?></a></li> 
+    <li><a href="modificarContrasena1.php">Cambiar contraseña</a></li>
     <li role="separator" class="divider"></li>
     <li><a href="cerrarSesion.php">Cerrar sesion</a></li>
   </ul>
       </li> 
       </ul>
-  </div>  
-  </section>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
    <section class="contenedor">
 <fieldset>
 
@@ -173,7 +144,8 @@ $jorge=conectar();
 $registro=$jorge->query("select nombreProveedor,NIT,direccion,telefono,contactoVenta,correo,celular from proveedor where NIT='".$_REQUEST['NIT']."'")
 or die($jorge->error);
 if ($row=$registro->fetch_array()) {
-echo '<table class="tablalistado">';
+echo '<div class="table-responsive">';
+echo '<table class="table table-bordered table-hover">';
 echo "<tr>";
 echo '<th>NIT</th>';
 echo '<th>NOMBRE</th>';
@@ -182,6 +154,7 @@ echo '<th>TELEFONO</th>';
 echo '<th>CONTACTO DE VENTA</th>';
 echo '<th>CORREO</th>';
 echo '<th>CELULAR</th>';
+echo '<th width="10%"></th>';
 echo "</tr>";
           echo "<tr>";
           echo "<td>";
@@ -205,23 +178,40 @@ echo "</tr>";
           echo "<td>";
           echo $row['celular'];
           echo "</td>";
-          echo "</tr>";
-echo "</table>"; 
-}else
-echo 'Proveedor con ese NIT no encontrado';
+          include '../Crud/md_modificarProveedor.php';
+          ?>
+            <td>
+        <a href="" id="<?php echo $row["NIT"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarProveedor"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <button id="<?php echo $row["NIT"];?>" name="eliminar" class="btn btn-sm btn-danger">
+    <i class="fa fa-trash-o" aria-hidden="true"></i>
+    </button>
+    </td>
+    <?php 
+              echo "</tr>";
+echo "</table>";
+echo "</div>";
+$jorge->close();
+}
   ?>
   <br>
   <br>
   <center>
-<form action="verProveedor1.php">
+<form action="consultaProveedor1.php">
     <button style="margin-left:125px;" type="submit" class="btn btn-primary">Volver</button>
     </form>
     </center>
-    </fieldset>
 </section>
-
-<script src="http://code.jquery.com/jquery.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/modalsProveedor.js"></script>
+    <script>
+    $(document).ready(function(){
+      $('.dropdown-submenu a.test').on("click", function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+      });
+    });
+    </script>
 </body>
 </html>
