@@ -1,5 +1,5 @@
  <?php 
- $codigo=$_POST['codigo'];
+ $codigo=$_REQUEST['codigo'];
 include 'conectar.php';
 $jorge=conectar();
 $luis=conectar();
@@ -8,24 +8,24 @@ if ($registros==true)
 {
 	$row=$registros->fetch_array();
 	if ($row[0]==$codigo) 
-		{
-			header("Location:fichaTecnica.php");
-			exit();
+		{	
+			
+			header("Location:GestionObra.php");
+			
 		}else
 			{
-				$luis->query("insert into obra(codigoObra,contratante,nombreObra)
-					values ('$codigo','$_REQUEST[contratante]','$_REQUEST[NombreObra]')")
+				$luis->query("insert into obra(codigoObra,contratante,nombreObra,fechaInicio,fechaFin)
+					values ('$codigo','$_REQUEST[contratante]','$_REQUEST[nombreObra]','$_REQUEST[fechaInicio]','$_REQUEST[fechaFin]')")
 				or die($luis->error);
-				$jorge->query("insert into fichaTecnica(descripcion,fechaInicio,fechaFin,duracion,valorTotalProyecto,Obra_codigoObra,Empleado_Documento)
-					values('$_REQUEST[decripcion]','$_REQUEST[FechaI]','$_REQUEST[FechaN]','$_REQUEST[Duracion]','$_REQUEST[valor]','$codigo','$_REQUEST[codigoEmple]')")
-				or die($jorge->error);
-				header('Location: GestionEmple.php');
-					exit();
+				echo '<script>
+alert("Informacion agregada con exito");
+window.location="GestionObra.php";
+				</script>';
 					
 			}
 }else
 	{
-	 header('Location:fichaTecnica.php');
+	 header('Location:RegistrarObra.php');
 	 exit();
 	}
 	$jorge->close();

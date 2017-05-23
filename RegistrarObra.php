@@ -1,8 +1,5 @@
 <?php
-session_start();
-if ($_SESSION['estado']==0){
-	header("location:../publicidad/loguin.php");
-}
+require_once 'core.php';
 ?>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -11,10 +8,9 @@ if ($_SESSION['estado']==0){
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Klimatizar-Registrar Obra</title>
-
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="../css/estilos.css">
-<link rel="shortcut icon" type="image/x-icon" href="../images/LOGO KLIMACOL.jpg">
+<link rel="shortcut icon" type="image/x-icon" href="../images/LOGOKLIMACOL.jpg">
 <link rel="stylesheet" href="../css/boostrap.min.css">
 <style type="text/css">
 

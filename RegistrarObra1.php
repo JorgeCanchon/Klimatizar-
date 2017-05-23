@@ -1,4 +1,5 @@
-<?php 
+<?php
+require_once 'core.php';
  $codigo=$_POST['codigo'];
 include 'conectar.php';
 $luis=conectar();
