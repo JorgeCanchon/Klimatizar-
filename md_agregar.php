@@ -1,8 +1,5 @@
 <?php 
-session_start();
-if ($_SESSION['estado']==0) {
-  header("Location:../publicidad/loguin.php");
-}
+require_once('../controlers/core.php');
 ?>
 <?php 
 $mysql=conectar();
@@ -127,7 +124,7 @@ $mysql->close();
 							<select name="idAFP" style="border-radius:5px;width: 370px;height: 33px;border-color:#BDBDBD;border-collapse:  collapse;">
 							 <?php 
 							$jorge=conectar();
-							$registros=$jorge->query("select * from AFP")
+							$registros=$jorge->query("select * from afp")
 							or die($jorge->error);
 							while ($reg=$registros->fetch_array()) {
 							  echo "<option value=\"".$reg['idAFP']."\">".$reg['nombreAFP']."</option>";
@@ -166,10 +163,10 @@ echo "var vector=".$js_array.";\n";
 					}
 					if (control === 1) 
 					{
-						alert("Documento invalido" +" " + doc + " "+"ya se encuentra registrado");
+						alert("Documento invalido " +" " + doc + " "+" ya se encuentra registrado");
 					}else
 					{
-						alert("Documento valido"+doc);
+						alert("Documento valido " + doc);
 					}	
 				}
 		}
