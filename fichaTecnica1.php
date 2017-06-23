@@ -3,7 +3,7 @@
 include 'conectar.php';
 $jorge=conectar();
 $luis=conectar();
-$registros=$jorge->query("select codigoObra from obra where codigoObra='".$codigo. "'")or die($jorge->error);
+$registros=$jorge->query("select idObra from obra where idObra='".$codigo. "'")or die($jorge->error);
 if ($registros==true) 
 {
 	$row=$registros->fetch_array();
@@ -14,7 +14,7 @@ if ($registros==true)
 			
 		}else
 			{
-				$luis->query("insert into obra(codigoObra,contratante,nombreObra,fechaInicio,fechaFin)
+				$luis->query("insert into obra(idObra,contratante,nombreObra,fechaInicio,fechaFin)
 					values ('$codigo','$_REQUEST[contratante]','$_REQUEST[nombreObra]','$_REQUEST[fechaInicio]','$_REQUEST[fechaFin]')")
 				or die($luis->error);
 				echo '<script>

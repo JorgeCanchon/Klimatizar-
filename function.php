@@ -1,5 +1,5 @@
 <?php
-
+require_once 'core.php';
 /**
  * @link: http://www.Awcore.com/dev
  */

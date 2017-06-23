@@ -19,7 +19,7 @@ if($jorge->query("UPDATE obra set
 				nombreObra='$_REQUEST[nombreObra]',
 				fechaInicio='$_REQUEST[fechaInicio]',
 				fechaFin='$_REQUEST[fechaFin]'
-				WHERE codigoObra='$_REQUEST[codi]'")
+				WHERE idObra='$_REQUEST[codi]'")
 	){
 echo '<script>
 alert("Informacion modificada con exito");

@@ -34,7 +34,7 @@ require_once 'core.php';
             <ul class="nav navbar-nav">
               <li  class="active"><a href="Principal.php"><span class="fa fa-home fa-fw"></span>Home</a></li>
               <!--Gestion de empleados-->
-                <li  class="active" ><a href="#" data-toggle="dropdown"  ><span  class="fa fa-user"></span>  Gestion de Empleados 
+                <li  class="active" ><a href="#" data-toggle="dropdown" ><span  class="fa fa-user"></span>  Gestion de Empleados 
       <span class="caret"></span></a>
     <ul class="dropdown-menu" role="Menu" >
    <li class="dropdown-submenu">
@@ -53,7 +53,10 @@ require_once 'core.php';
           <li><a tabindex="-1" href="consultaCargo.php">Buscar Cargo</a></li>
         </ul>
       </li>
-
+<li><a href="GestionEPS.php">EPS</a><li>
+<li><a href="GestionARL.php">ARL</a></li>
+<li><a href="GestionAFP.php">AFP</a></li>
+<li><a href="GestionCliente.php">Cliente</a></li>
                 </ul>
               </li>
   </li>
@@ -75,20 +78,38 @@ require_once 'core.php';
                   <li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span> Consulta 
                   <span class="caret"></a>
                 <ul class="dropdown-menu" role="Menu" >
-                  <li><a href="consultaEmpleado1.php">Empleado</span></a></li> 
-                  <li><a href="consultaCargo1.php">Cargo</a></li>
+                  <li><a href="../Reportes/app/reportes/ReportesEmpleados.php">Empleado</span></a></li> 
+                  <li><a href="../Reportes/app/reportes/ReportesCargo.php">Cargo</a></li>
                   <li><a href="#">Obra</a></li>
                   <li role="separator" class="divider"></li>
                    <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Kardex<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="#">Solicitud de material</a></li>
-          <li><a tabindex="-1" href="#">Orden de compra</a></li>
-          <li><a tabindex="-1" href="#">Remision de material</a></li>
+            <li class="dropdown-submenu">
+            <a class="test" href="#">Solicitud de material <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
+                   <li class="dropdown-submenu">
+            <a class="test" href="#">Orden de compra <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
+                   <li class="dropdown-submenu">
+            <a class="test" href="#">Remision de material<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
-                  <li><a href="producto.php">Producto</a></li>
-                  <li><a href="verProveedor1.php">Proveedor</a></li>
+                  <li><a href="../Reportes/app/reportes/ReportesProducto.php">Producto</a></li>
+                  <li><a href="#">Proveedor</a></li>
                 </ul>
                   </li> 
 
@@ -110,15 +131,16 @@ require_once 'core.php';
                   </li>
               </ul>
                   </li>
-      <ul class="nav navbar-nav">
-     <li><i style="margin-top:10px;margin-left:15px; " class="fa fa-power-off fa-2x" aria-hidden="true" data-toggle="dropdown"></i>
-    <ul class="dropdown-menu" role="Menu" >
-    <li><a href="ModificarInformacion.php" ><?php echo $_SESSION['usuario']; ?></a></li> 
+                                    <!--usuario-->
+                  <li  class="active" ><a href="#" data-toggle="dropdown" ><?php echo $_SESSION['usuario']; ?><span class="caret"></a>
+              <ul class="dropdown-menu" role="Menu" >
+    <li><a href="ModificarInformacion.php" >Informacion personal</a></li> 
     <li><a href="modificarContrasena1.php">Cambiar contraseña</a></li>
-    <li role="separator" class="divider"></li>
-    <li><a href="cerrarSesion.php">Cerrar sesion</a></li>
-  </ul>
-      </li> 
+                  </li>
+              </ul>
+                  </li>
+      <ul class="nav navbar-nav">
+     <li><a class="fa fa-power-off fa-2x" href="cerrarSesion.php"></a></li> 
       </ul>
           </div><!--/.nav-collapse -->
           </nav>
@@ -128,7 +150,7 @@ require_once 'core.php';
   <br>
     <div class="container">
       <div class="col-md-2 col-md-offset-10">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#inst_Persona"> 
+        <button class="btn btn-primary" data-toggle="modal" data-target="#inst_obra"> 
           Agregar
           <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
         </button>
@@ -145,7 +167,7 @@ include 'conectar.php';
  ?>
 <?php 
 $jorge=conectar();
-$registros=$jorge->query("select codigoObra,contratante,nombreObra,visibilidad,fechaInicio,fechaFin from obra where visibilidad=1")or
+$registros=$jorge->query("select idObra,contratante,nombreObra,visibilidad,fechaInicio,fechaFin from obra where visibilidad=1")or
 die($jorge->error);
 echo '<div class="table-responsive">';
 echo '<table class="table table-bordered table-hover">';
@@ -155,7 +177,7 @@ while ($reg=$registros->fetch_array())
   echo '<tr>';
   echo '<td>';
   echo "<center>";
-  echo $reg['codigoObra'];
+  echo $reg['idObra'];
   echo '</td>';
   echo '<td>';
   echo "<center>";
@@ -182,9 +204,9 @@ echo $interval->format('%R%a días');
   echo '</td>';
   ?>
    <td>
-    <a href="" id="<?php echo $reg["codigoObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <a href="" id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 
-    <a id="<?php echo $reg["codigoObra"];?>" class="btn btn-sm btn-danger">
+    <a id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-danger">
     <i class="fa fa-trash-o" aria-hidden="true"></i>
     </a>
   </td>
@@ -205,11 +227,6 @@ include('../Crud/md_agregarObra.php');
 </center>
 </fieldset>  
 </section>
-  <?php  
-     include('../Crud/md_modificarObra.php');
-  
-  ?>
-
 <script src="../js/jquery.js"></script>
 <script src="../js/jquery.easing.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
@@ -236,3 +253,7 @@ include('../Crud/md_agregarObra.php');
 </script>
 </body>
 </html>
+  <?php  
+     include('../Crud/md_modificarObra.php');
+  
+  ?>

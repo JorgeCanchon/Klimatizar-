@@ -1,9 +1,6 @@
 <?php 
 error_reporting(0);
-session_start();
-if ($_SESSION['estado']==0) {
-  header("Location:../publicidad/loguin.php");
-}
+require_once 'core.php';
  ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +14,7 @@ include 'conectar.php';
  ?>
  <?php 
 $jorge=conectar();
-$jorge->query("delete from proveedor where NIT='" . $_REQUEST['nit']. "'")or die($jorge->error);
+$jorge->query("UPDATE proveedor SET visibilidad=0 where NIT='" . $_REQUEST['nit']. "'")or die($jorge->error);
 $jorge->close();
 header('Location:verProveedor2.php');
   ?>	

@@ -3,7 +3,7 @@ require_once 'core.php';
  $codigo=$_POST['codigo'];
 include 'conectar.php';
 $luis=conectar();
-$registros=$jorge->query("select codigoObra from obra where codigoObra='".$codigo. "'")or die($jorge->error);
+$registros=$jorge->query("select idObra from obra where codigoObra='".$codigo. "'")or die($jorge->error);
 if ($registros==true) 
 {
 	$row=$registros->fetch_array();
@@ -13,7 +13,7 @@ if ($registros==true)
 			exit();
 		}else
 			{
-				$luis->query("insert into obra(codigoObra,contratante,nombreObra)
+				$luis->query("insert into obra(idObra,contratante,nombreObra)
 					values ('$codigo','$_REQUEST[contratante]','$_REQUEST[NombreObra]')")
 				or die($luis->error);
 		 }

@@ -9,7 +9,7 @@ require_once 'core.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Klimatizar-Obra</title>
+    <title>Klimatizar-Empleado</title>
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.css"> 
     <link rel="shortcut icon" href="../images/LOGOKLIMACOL.jpg" type="image/x-icon">
     <!-- Bootstrap core CSS -->
@@ -34,7 +34,7 @@ require_once 'core.php';
             <ul class="nav navbar-nav">
               <li  class="active"><a href="Principal.php"><span class="fa fa-home fa-fw"></span>Home</a></li>
               <!--Gestion de empleados-->
-                <li  class="active" ><a href="#" data-toggle="dropdown"  ><span  class="fa fa-user"></span>  Gestion de Empleados 
+                <li  class="active" ><a href="#" data-toggle="dropdown" ><span  class="fa fa-user"></span>  Gestion de Empleados 
       <span class="caret"></span></a>
     <ul class="dropdown-menu" role="Menu" >
    <li class="dropdown-submenu">
@@ -53,7 +53,10 @@ require_once 'core.php';
           <li><a tabindex="-1" href="consultaCargo.php">Buscar Cargo</a></li>
         </ul>
       </li>
-
+<li><a href="GestionEPS.php">EPS</a><li>
+<li><a href="GestionARL.php">ARL</a></li>
+<li><a href="GestionAFP.php">AFP</a></li>
+<li><a href="GestionCliente.php">Cliente</a></li>
                 </ul>
               </li>
   </li>
@@ -75,20 +78,38 @@ require_once 'core.php';
                   <li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span> Consulta 
                   <span class="caret"></a>
                 <ul class="dropdown-menu" role="Menu" >
-                  <li><a href="consultaEmpleado1.php">Empleado</span></a></li> 
-                  <li><a href="consultaCargo1.php">Cargo</a></li>
+                  <li><a href="../Reportes/app/reportes/ReportesEmpleados.php">Empleado</span></a></li> 
+                  <li><a href="../Reportes/app/reportes/ReportesCargo.php">Cargo</a></li>
                   <li><a href="#">Obra</a></li>
                   <li role="separator" class="divider"></li>
                    <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Kardex<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="#">Solicitud de material</a></li>
-          <li><a tabindex="-1" href="#">Orden de compra</a></li>
-          <li><a tabindex="-1" href="#">Remision de material</a></li>
+            <li class="dropdown-submenu">
+            <a class="test" href="#">Solicitud de material <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
+                   <li class="dropdown-submenu">
+            <a class="test" href="#">Orden de compra <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
+                   <li class="dropdown-submenu">
+            <a class="test" href="#">Remision de material<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
-                  <li><a href="producto.php">Producto</a></li>
-                  <li><a href="verProveedor1.php">Proveedor</a></li>
+                  <li><a href="../Reportes/app/reportes/ReportesProducto.php">Producto</a></li>
+                  <li><a href="#">Proveedor</a></li>
                 </ul>
                   </li> 
 
@@ -110,62 +131,73 @@ require_once 'core.php';
                   </li>
               </ul>
                   </li>
+                                    <!--usuario-->
+                  <li  class="active" ><a href="#" data-toggle="dropdown" ><?php echo $_SESSION['usuario']; ?><span class="caret"></a>
+              <ul class="dropdown-menu" role="Menu" >
+    <li><a href="ModificarInformacion.php" >Informacion personal</a></li> 
+    <li><a href="modificarContrasena1.php">Cambiar contraseña</a></li>
+                  </li>
+              </ul>
+                  </li>
+      <ul class="nav navbar-nav">
+     <li><a class="fa fa-power-off fa-2x" href="cerrarSesion.php"></a></li> 
+      </ul>
+          </div><!--/.nav-collapse -->
+          </nav>
         </div><!--/.container-fluid -->
-      </nav> 
-      </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-   <section class="contenedor">
-<fieldset>
-
-<legend><h1 style="color:black;">TABLA OBRA</h1></legend> 
-<?php 
-include 'conectar.php';
- ?>
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+    <section class="contenedor">
+ <fieldset>
+ 
+ <legend><h1 style="color:black;">TABLA OBRA</h1></legend> 
  <?php 
-$jorge= conectar();
-$registros=$jorge->query("select codigoObra,contratante,nombreObra,fechaInicio,fechaFin from obra where codigoObra='$_REQUEST[Obra]'")
-or die($jorge->error);
-
-if($reg=$registros->fetch_array())
-{
-  echo '<div class="table-responsive">';
-  echo '<table class="table table-bordered table-hover">';
-  echo '<tr><th><center>codigo obra</center></th><th>contratante</th><th>nombreObra</th><th>fechaInicio</th><th>fechaFin</th><th>Duracion</th><th width="7%"> </th></tr>';
-	echo '<tr>';
-  echo '<td>';
-  echo $reg['codigoObra'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['contratante'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['nombreObra'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['fechaInicio'];
-  echo '</td>';
-  echo '<td>';
-  echo $reg['fechaFin'];
-  echo '</td>';
-echo '<td>';
-  $datetime1 = date_create($reg['fechaFin']);
-$datetime2 = date_create($reg['fechaInicio']);
-$interval = date_diff($datetime2, $datetime1);
-echo $interval->format('%R%a días');
-  echo '</td>';
-  ?>
-  <td>
-        <a href="" id="<?php echo $reg["codigoObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarObra"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-    <button id="<?php echo $reg["codigoObra"];?>" name="eliminar" class="btn btn-sm btn-danger">
-    <i class="fa fa-trash-o" aria-hidden="true"></i>
-  </td>
-  <?php
-  echo '</tr>';
-  echo '</table>';
+ include 'conectar.php';
+ ?>
+  <?php 
+ $jorge= conectar();
+ $registros=$jorge->query("select idObra,contratante,nombreObra,fechaInicio,fechaFin from obra where idObra='$_REQUEST[Obra]'")
+ or die($jorge->error);
+ 
+ if($reg=$registros->fetch_array())
+ {
+   echo '<div class="table-responsive">';
+   echo '<table class="table table-bordered table-hover">';
+   echo '<tr><th><center>codigo obra</center></th><th>contratante</th><th>nombreObra</th><th>fechaInicio</th><th>fechaFin</th><th>Duracion</th><th width="7%"> </th></tr>';
+ 	echo '<tr>';
+   echo '<td>';
+   echo $reg['idObra'];
+   echo '</td>';
+   echo '<td>';
+   echo $reg['contratante'];
+   echo '</td>';
+   echo '<td>';
+   echo $reg['nombreObra'];
+   echo '</td>';
+   echo '<td>';
+   echo $reg['fechaInicio'];
+   echo '</td>';
+   echo '<td>';
+   echo $reg['fechaFin'];
+   echo '</td>';
+ echo '<td>';
+   $datetime1 = date_create($reg['fechaFin']);
+ $datetime2 = date_create($reg['fechaInicio']);
+ $interval = date_diff($datetime2, $datetime1);
+ echo $interval->format('%R%a días');
+   echo '</td>';
+   ?>
+   <td>
+         <a href="" id="<?php echo $reg["codigoObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarObra"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+     <button id="<?php echo $reg["codigoObra"];?>" name="eliminar" class="btn btn-sm btn-danger">
+     <i class="fa fa-trash-o" aria-hidden="true"></i>
+   </td>
+   <?php
+   echo '</tr>';
+   echo '</table>';
   echo '</div>';
 }
 
@@ -178,28 +210,28 @@ else {
 
 $jorge->close();
   ?>	
-  <br>
-  <br>
-     <form action="consultaObra.php">
-    <button style="margin-left:400px;" type="submit" class="btn btn-primary">Volver</button>
-    </form>
-    </fieldset>
-</section>
-  <?php  
-  include('../Crud/md_modificarObra.php');
-  include('../Crud/md_agregarObra.php');
-  ?>
-<script src="../js/jquery.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/modals.js"></script>
-    <script>
-    $(document).ready(function(){
-      $('.dropdown-submenu a.test').on("click", function(e){
-        $(this).next('ul').toggle();
-        e.stopPropagation();
-        e.preventDefault();
-      });
-    });
-    </script>
-</body>
-</html>
+   <br>
+   <br>
+      <form action="consultaObra.php">
+     <button style="margin-left:400px;" type="submit" class="btn btn-primary">Volver</button>
+     </form>
+     </fieldset>
+ </section>
+   <?php  
+   include('../Crud/md_modificarObra.php');
+   include('../Crud/md_agregarObra.php');
+   ?>
+ <script src="../js/jquery.js"></script>
+ <script src="../js/bootstrap.min.js"></script>
+ <script src="../js/modals.js"></script>
+     <script>
+     $(document).ready(function(){
+       $('.dropdown-submenu a.test').on("click", function(e){
+         $(this).next('ul').toggle();
+         e.stopPropagation();
+         e.preventDefault();
+       });
+     });
+     </script>
+ </body>
+ </html> 

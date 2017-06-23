@@ -1,5 +1,5 @@
 <?php
-function generaPass(){
+ function generaPass(){
     //Se define una cadena de caractares. Te recomiendo que uses esta.
     $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
     //Obtenemos la longitud de la cadena de caracteres

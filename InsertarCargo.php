@@ -1,8 +1,5 @@
 <?php 
-session_start();
-if ($_SESSION['estado']==0) {
-  header("Location:../publicidad/loguin.php");
-}
+require_once 'core.php';
  ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -22,22 +19,21 @@ or die($jorge->error);
 
 	if ($registros==true) {
 		$row=$registros->fetch_array();
-		if($row[1]==$id)
+		if($row['NombreCargo']==$id)
 		{
-			header('Location: RegistrarCargo.php');
-				exit();
+			echo '<script>alert("Cargo ingresado ya existente");
+			window.location="Cargo1.php";</script>';
 		}else
 			{
-
 				$jorge->query("insert into cargo(NombreCargo,Descripcion) values('$_REQUEST[nombreCargo]','$_REQUEST[descripcion]')") or die($jorge->error);
 				$jorge->close();
-				echo "La nueva categoria se almacenó"; 
 				header('Location:Cargo1.php');
 				exit();
 			}
 	}else
 		{
-			header('Location: RegistrarCargo.php');
+
+			header('Location:Cargo1.php');
 			exit();
 		}
 

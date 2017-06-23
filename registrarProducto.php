@@ -1,9 +1,6 @@
 <?php 
 error_reporting(0);
-session_start();
-if ($_SESSION['estado']==0) {
-  header("Location:../publicidad/loguin.php");
-}
+require_once 'core.php';
 include 'conectar.php';
  ?>
  <?php 

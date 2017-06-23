@@ -1,8 +1,5 @@
 <?php 
-session_start();
-if ($_SESSION['estado']==0) {
-  header("Location:../publicidad/loguin.php");
-}
+require_once 'core.php';
 ?>
 <?php
 $password=$_REQUEST['actual'];
@@ -21,7 +18,7 @@ if ($validar=password_verify($password, $row['Contrasena']))
 	$jorge->close();
 	echo '<script type="text/javascript">	
 					alert("contraseña modificada");
-					window.location="modificarContrasena1";
+					window.location="cerrarSesion.php";
 		</script>'; 
 }else
 {

@@ -1,6 +1,5 @@
-
-
-<?php 
+<?php
+require_once 'core.php';
 include ('conectar.php');
 $jorge=conectar();
 $registro=$jorge->query("select Usuario from usuario")or die($jorge->error);

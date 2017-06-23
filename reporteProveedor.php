@@ -1,6 +1,6 @@
 <?php
+require_once('core.php');
 require_once('../lib/pdf/mpdf.php');
-
 $conn = new mysqli('localhost', 'root', '', 'klimatizar');//CONECCION BD
 $query ="SELECT * FROM proveedor";//CONSULTA EN LA BD
 $prepare = $conn->prepare($query);
@@ -10,10 +10,6 @@ while($proveedor[] = $resultSet->fetch_array());
 $resultSet->close();
 $prepare->close();
 $conn->close();
-
-
-
-
 $html ='<header class="clearfix">
       <div id="logo">
         <img src="img/LOGO KLIMACOL.jpg">
@@ -49,31 +45,30 @@ $html ='<header class="clearfix">
           </thead>
           <tbody>';
           foreach ($proveedor as $proveedores) {
-        	$html .='<tr>
-           	<td class="nombreProveedor">'.$proveedores['nombreProveedor'].'</td>
-        	<td class="NIT">'.$proveedores['NIT'].'</td>
-        	<td class="Direccion">'.$proveedores['direccion'].'</td>
-        	<td class="Telefono">'.$proveedores['telefono'].'</td>
-        	<td class="Contactoventa">'.$proveedores['contactoventa'].'</td>
-        	<td class="Correo">'.$proveedores['correo'].'</td>
-        	<td class="Celular">'.$proveedores['celular'].'</td>
-        	<td class="Visibilidad">'.$proveedores['visibilidad'].'</td>
-          	</tr>';
-        	}
- 			$html .='
-			</tbody>
-	        </table>
-	        <div id="klimatizar">
-	        <div>Klimatizar:</div>
-	        <div class="klimatizar">
-	        Asesoría, diseño, mantenimiento, suministro e instalación de sistemas de aire acondicionado, enfriamiento evaporativo y ventilación mecánica.
-	        </div>
-	        </div>
-	        </main>';
-
-			$mpdf = new mPDF('c', 'A4');
-			$css= file_get_contents('css/style.css');
-			$mpdf->writeHTML($css,1);
-			$mpdf->writeHTML($html);
-			$mpdf->Output('reporte.pdf', 'I');
-			?>
+          $html .='<tr>
+            <td class="nombreProveedor">'.$proveedores['nombreProveedor'].'</td>
+          <td class="NIT">'.$proveedores['NIT'].'</td>
+          <td class="Direccion">'.$proveedores['direccion'].'</td>
+          <td class="Telefono">'.$proveedores['telefono'].'</td>
+          <td class="Contactoventa">'.$proveedores['contactoventa'].'</td>
+          <td class="Correo">'.$proveedores['correo'].'</td>
+          <td class="Celular">'.$proveedores['celular'].'</td>
+          <td class="Visibilidad">'.$proveedores['visibilidad'].'</td>
+            </tr>';
+          }
+      $html .='
+      </tbody>
+          </table>
+          <div id="klimatizar">
+          <div>Klimatizar:</div>
+          <div class="klimatizar">
+          Asesoría, diseño, mantenimiento, suministro e instalación de sistemas de aire acondicionado, enfriamiento evaporativo y ventilación mecánica.
+          </div>
+          </div>
+          </main>';
+      $mpdf = new mPDF('c', 'A4');
+      $css= file_get_contents('css/style.css');
+      $mpdf->writeHTML($css,1);
+      $mpdf->writeHTML($html);
+      $mpdf->Output('reporte.pdf', 'I');
+      ?>

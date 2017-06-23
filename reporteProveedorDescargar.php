@@ -1,15 +1,10 @@
 <?php 
 session_start();
-if ($_SESSION['estado']==0) {
-  header("Location:../publicidad/loguin.php");
-}/*
+require_once 'core.php';
 header('Content-type: application/vnd.ms-word');
 header("Content-Disposition: attachment; filename=Proveedor.doc");
 header("Pragma: no-cache");
-header("Expires: 0");*/
-header("Content-disposition: attachment; filename=Proveedor.pdf");
-header("Content-type: application/pdf");
-readfile("Proveedor.pdf");
+header("Expires: 0");
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -42,7 +37,7 @@ readfile("Proveedor.pdf");
 <?php   
 include 'conectar.php';
  ?>
- <img src="../images/LOGO KLIMACOL.jpg" />
+ <img src="../images/LOGOKLIMACOL.jpg" />
  <h1>LISTADO DE PRODUCTOS</h1>
  <?php  
 $jorge=conectar();

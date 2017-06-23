@@ -54,8 +54,9 @@ require_once 'core.php';
         </ul>
       </li>
 <li><a href="GestionEPS.php">EPS</a><li>
-<li><a href="">ARL</a></li>
-<li><a href="">AFP</a></li>
+<li><a href="GestionARL.php">ARL</a></li>
+<li><a href="GestionAFP.php">AFP</a></li>
+<li><a href="GestionCliente.php">Cliente</a></li>
                 </ul>
               </li>
   </li>
@@ -77,20 +78,38 @@ require_once 'core.php';
                   <li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span> Consulta 
                   <span class="caret"></a>
                 <ul class="dropdown-menu" role="Menu" >
-                  <li><a href="consultaEmpleado1.php">Empleado</span></a></li> 
-                  <li><a href="consultaCargo1.php">Cargo</a></li>
+                  <li><a href="../Reportes/app/reportes/ReportesEmpleados.php">Empleado</span></a></li> 
+                  <li><a href="../Reportes/app/reportes/ReportesCargo.php">Cargo</a></li>
                   <li><a href="#">Obra</a></li>
                   <li role="separator" class="divider"></li>
                    <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Kardex<span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="#">Solicitud de material</a></li>
-          <li><a tabindex="-1" href="#">Orden de compra</a></li>
-          <li><a tabindex="-1" href="#">Remision de material</a></li>
+            <li class="dropdown-submenu">
+            <a class="test" href="#">Solicitud de material <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
+                   <li class="dropdown-submenu">
+            <a class="test" href="#">Orden de compra <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
+                   <li class="dropdown-submenu">
+            <a class="test" href="#">Remision de material<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">3rd level dropdown</a></li>
+              <li><a href="#">3rd level dropdown</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
-                  <li><a href="producto.php">Producto</a></li>
-                  <li><a href="verProveedor1.php">Proveedor</a></li>
+                  <li><a href="../Reportes/app/reportes/ReportesProducto.php">Producto</a></li>
+                  <li><a href="#">Proveedor</a></li>
                 </ul>
                   </li> 
 

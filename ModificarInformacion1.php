@@ -1,14 +1,11 @@
 <?php 
-session_start();
-if ($_SESSION['estado']==0) {
-  header("Location:../publicidad/loguin.php");
-}
+require_once 'core.php';
  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Modificar Empleado</title>
+	<title>Modificar Informacion</title>
 </head>
 <body>
 <?php 
@@ -26,6 +23,9 @@ if (($jorge->query("UPDATE usuario SET
 				ARL_idARL='$_REQUEST[idARL]',AFP_idAFP='$_REQUEST[idAFP]'
 				where Documento='$_SESSION[empleado]'"
 			)	)) {
+	$registro=$jorge->query("SELECT NombreCompleto FROM empleado WHERE Documento='$_SESSION[empleado]'");
+$jo=$registro->fetch_array();
+$_SESSION['usuario']=$jo['NombreCompleto'];
 	  echo '<script>alert("Informacion modificada con exito");
 	window.location="Principal.php";</script>';
 }else{
