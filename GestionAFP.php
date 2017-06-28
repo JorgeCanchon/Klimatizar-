@@ -9,7 +9,7 @@ require_once 'core.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Klimatizar-Empleado</title>
+    <title>Klimatizar-AFP</title>
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.css"> 
     <link rel="shortcut icon" href="../images/LOGOKLIMACOL.jpg" type="image/x-icon">
     <!-- Bootstrap core CSS -->
@@ -34,7 +34,7 @@ require_once 'core.php';
             <ul class="nav navbar-nav">
               <li  class="active"><a href="Principal.php"><span class="fa fa-home fa-fw"></span>Home</a></li>
               <!--Gestion de empleados-->
-                <li  class="active" ><a href="#" data-toggle="dropdown" ><span  class="fa fa-user"></span>  Gestion de Empleados 
+                <li  class="active" ><a href="#" data-toggle="dropdown"  ><span  class="fa fa-user"></span>  Gestion de Empleados 
       <span class="caret"></span></a>
     <ul class="dropdown-menu" role="Menu" >
    <li class="dropdown-submenu">
@@ -53,10 +53,7 @@ require_once 'core.php';
           <li><a tabindex="-1" href="consultaCargo.php">Buscar Cargo</a></li>
         </ul>
       </li>
-<li><a href="GestionEPS.php">EPS</a><li>
-<li><a href="GestionARL.php">ARL</a></li>
-<li><a href="GestionAFP.php">AFP</a></li>
-<li><a href="GestionCliente.php">Cliente</a></li>
+
                 </ul>
               </li>
   </li>
@@ -78,38 +75,20 @@ require_once 'core.php';
                   <li  class="active"><a href="#" data-toggle="dropdown" ><span class="fa fa-book fa-fw"> </span> Consulta 
                   <span class="caret"></a>
                 <ul class="dropdown-menu" role="Menu" >
-                  <li><a href="../Reportes/app/reportes/ReportesEmpleados.php">Empleado</span></a></li> 
-                  <li><a href="../Reportes/app/reportes/ReportesCargo.php">Cargo</a></li>
+                  <li><a href="consultaEmpleado1.php">Empleado</span></a></li> 
+                  <li><a href="consultaCargo1.php">Cargo</a></li>
                   <li><a href="#">Obra</a></li>
                   <li role="separator" class="divider"></li>
                    <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Kardex<span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-submenu">
-            <a class="test" href="#">Solicitud de material <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">3rd level dropdown</a></li>
-              <li><a href="#">3rd level dropdown</a></li>
-            </ul>
-          </li>
-                   <li class="dropdown-submenu">
-            <a class="test" href="#">Orden de compra <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">3rd level dropdown</a></li>
-              <li><a href="#">3rd level dropdown</a></li>
-            </ul>
-          </li>
-                   <li class="dropdown-submenu">
-            <a class="test" href="#">Remision de material<span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">3rd level dropdown</a></li>
-              <li><a href="#">3rd level dropdown</a></li>
-            </ul>
-          </li>
+          <li><a tabindex="-1" href="#">Solicitud de material</a></li>
+          <li><a tabindex="-1" href="#">Orden de compra</a></li>
+          <li><a tabindex="-1" href="#">Remision de material</a></li>
         </ul>
       </li>
-                  <li><a href="../Reportes/app/reportes/ReportesProducto.php">Producto</a></li>
-                  <li><a href="#">Proveedor</a></li>
+                  <li><a href="producto.php">Producto</a></li>
+                  <li><a href="verProveedor1.php">Proveedor</a></li>
                 </ul>
                   </li> 
 
@@ -131,16 +110,15 @@ require_once 'core.php';
                   </li>
               </ul>
                   </li>
-                                    <!--usuario-->
-                  <li  class="active" ><a href="#" data-toggle="dropdown" ><?php echo $_SESSION['usuario']; ?><span class="caret"></a>
-              <ul class="dropdown-menu" role="Menu" >
-    <li><a href="ModificarInformacion.php" >Informacion personal</a></li> 
-    <li><a href="modificarContrasena1.php">Cambiar contraseña</a></li>
-                  </li>
-              </ul>
-                  </li>
       <ul class="nav navbar-nav">
-     <li><a class="fa fa-power-off fa-2x" href="cerrarSesion.php"></a></li> 
+     <li><i style="margin-top:10px;margin-left:15px; " class="fa fa-power-off fa-2x" aria-hidden="true" data-toggle="dropdown"></i>
+    <ul class="dropdown-menu" role="Menu" >
+    <li><a href="ModificarInformacion.php" ><?php echo $_SESSION['usuario']; ?></a></li> 
+    <li><a href="modificarContrasena1.php">Cambiar contraseña</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="cerrarSesion.php">Cerrar sesion</a></li>
+  </ul>
+      </li> 
       </ul>
           </div><!--/.nav-collapse -->
           </nav>
