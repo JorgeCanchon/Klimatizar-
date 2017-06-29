@@ -1,5 +1,5 @@
 <?php 
-require_once '../controlers/core.php';
+require_once 'core.php';
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -91,122 +91,87 @@ require_once '../controlers/core.php';
                   </li>
               </ul>
                   </li>
-      <ul class="nav navbar-nav">
-     <li><a class="fa fa-power-off fa-2x" href="../controlers/cerrarSesion.php"></a></li> 
+     <li><a class="fa fa-power-off fa-2x" href="cerrarSesion.php"></a></li> 
       </ul>
           </div><!--/.nav-collapse -->
           </nav>
         </div><!--/.container-fluid -->
-      
-  <br>
-  <br>
-  <br>
-    <div class="container">
-      <div class="col-md-2 col-md-offset-10">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#inst_obra"> 
-          Agregar
-          <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-        </button>
-      </div><!-- /.span -->
-    </div>
-  <br>
-  <br>
-
-  <section class="contenedor">
-  <fieldset>
-  <legend><h1 style="color:black;">LISTADO OBRA</h1></legend> 
-<?php 
-include '../controlers/conectar.php';
+   <br>
+   <br>
+   <br>
+   <br>
+   <br>
+    <section class="contenedor">
+ <fieldset>
+ 
+ <legend><h1 style="color:black;">TABLA OBRA</h1></legend> 
+ <?php 
+ include 'conectar.php';
  ?>
-<?php 
-$jorge=conectar();
-$registros=$jorge->query("select idObra,contratante,nombreObra,visibilidad,fechaInicio,fechaFin from obra where visibilidad=1")or
-die($jorge->error);
-echo '<div class="table-responsive">';
-echo '<table class="table table-bordered table-hover">';
-echo '<tr><th>CODIGO OBRA</th><th>CONTRATANTE</th><th>NOMBRE OBRA</th><th>FECHA INICIO</th><th>FECHA FIN</th><th>DURACION</th><th> </th></tr>';
-while ($reg=$registros->fetch_array())
-{
-  echo '<tr>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['idObra'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['contratante'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['nombreObra'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['fechaInicio'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['fechaFin'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  $datetime1 = date_create($reg['fechaFin']);
-$datetime2 = date_create($reg['fechaInicio']);
-$interval = date_diff($datetime2, $datetime1);
-echo $interval->format('%R%a días');
-  echo '</td>';
-  ?>
-   <td>
-    <a href="" id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-    <a id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-danger">
-    <i class="fa fa-trash-o" aria-hidden="true"></i>
-    </a>
-  </td>
-  <?php
-  echo '</tr>';
+  <?php 
+ $jorge= conectar();
+ $registros=$jorge->query("select idObra,contratante,nombreObra,fechaInicio,fechaFin from obra where idObra='$_REQUEST[Obra]'")
+ or die($jorge->error);
+ 
+ if($reg=$registros->fetch_array())
+ {
+   echo '<div class="table-responsive">';
+   echo '<table class="table table-bordered table-hover">';
+   echo '<tr><th><center>codigo obra</center></th><th>contratante</th><th>nombreObra</th><th>fechaInicio</th><th>fechaFin</th><th>Duracion</th><th width="7%"> </th></tr>';
+ 	echo '<tr>';
+   echo '<td>';
+   echo $reg['idObra'];
+   echo '</td>';
+   echo '<td>';
+   echo $reg['contratante'];
+   echo '</td>';
+   echo '<td>';
+   echo $reg['nombreObra'];
+   echo '</td>';
+   echo '<td>';
+   echo $reg['fechaInicio'];
+   echo '</td>';
+   echo '<td>';
+   echo $reg['fechaFin'];
+   echo '</td>';
+ echo '<td>';
+   $datetime1 = date_create($reg['fechaFin']);
+ $datetime2 = date_create($reg['fechaInicio']);
+ $interval = date_diff($datetime2, $datetime1);
+ echo $interval->format('%R%a días');
+   echo '</table>';
 }
-echo '</table>';
-echo '</div>';
-$jorge->close();
-include('../Crud/md_agregarObra.php');
- ?>
- <br>
- <br>
- <center>
-     <form action="PrincipalIngeniero.php">
-   <input type="submit" value="volver" class="btn btn-primary">
-</form>
-</center>
-</fieldset>  
-</section>
-<script src="../js/jquery.js"></script>
-<script src="../js/jquery.easing.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/modalsObra.js"></script>
-<script type="text/javascript">
-      $(document).ready(function(){
-      $('.dropdown-submenu a.test').on("click", function(e){
-        $(this).next('ul').toggle();
-        e.stopPropagation();
-        e.preventDefault();
-      });
-    });
-          function validarFecha(){
 
-      var a=document.getElementById('fechaI').value;
-      var b=document.getElementById('fechaF').value;
-      if (b<a) {
-        alert("Fecha final no valida");
-        b.focus();
-      }else{
-      myForm.submit();
-      }
-    }
-</script>
-</body>
-</html>
-  <?php  
-     include('../Crud/md_modificarObra.php');
-  
-  ?>
+else {
+	echo '<script type="text/javascript">  
+          alert("codigo obra No encontrado");
+          window.location="consultaObra.php";
+          </script>'; 
+}
+
+$jorge->close();
+  ?>	
+   <br>
+   <br>
+      <form action="consultaObra.php">
+     <button style="margin-left:400px;" type="submit" class="btn btn-primary">Volver</button>
+     </form>
+     </fieldset>
+
+     
+ </section>
+   
+ <script src="../js/jquery.js"></script>
+ <script src="../js/bootstrap.min.js"></script>
+ <script src="../js/modals.js"></script>
+     <script>
+     $(document).ready(function(){
+       $('.dropdown-submenu a.test').on("click", function(e){
+         $(this).next('ul').toggle();
+         e.stopPropagation();
+         e.preventDefault();
+       });
+     });
+     </script>
+ </body>
+ </html> 

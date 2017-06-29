@@ -1,5 +1,5 @@
 <?php 
-require_once '../controlers/core.php';
+require_once 'core.php';
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -23,7 +23,7 @@ require_once '../controlers/core.php';
             <div class="container-fluid">
           <div class="head">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Navegacion</span>
+               <span class="sr-only">Navegacion</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                  <span class="icon-bar"></span>
@@ -92,121 +92,77 @@ require_once '../controlers/core.php';
               </ul>
                   </li>
       <ul class="nav navbar-nav">
-     <li><a class="fa fa-power-off fa-2x" href="../controlers/cerrarSesion.php"></a></li> 
+     <li><a class="fa fa-power-off fa-2x" href="cerrarSesion.php"></a></li> 
       </ul>
           </div><!--/.nav-collapse -->
           </nav>
         </div><!--/.container-fluid -->
-      
-  <br>
-  <br>
-  <br>
-    <div class="container">
-      <div class="col-md-2 col-md-offset-10">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#inst_obra"> 
-          Agregar
-          <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-        </button>
-      </div><!-- /.span -->
-    </div>
-  <br>
-  <br>
-
-  <section class="contenedor">
-  <fieldset>
-  <legend><h1 style="color:black;">LISTADO OBRA</h1></legend> 
-<?php 
-include '../controlers/conectar.php';
- ?>
-<?php 
-$jorge=conectar();
-$registros=$jorge->query("select idObra,contratante,nombreObra,visibilidad,fechaInicio,fechaFin from obra where visibilidad=1")or
-die($jorge->error);
-echo '<div class="table-responsive">';
-echo '<table class="table table-bordered table-hover">';
-echo '<tr><th>CODIGO OBRA</th><th>CONTRATANTE</th><th>NOMBRE OBRA</th><th>FECHA INICIO</th><th>FECHA FIN</th><th>DURACION</th><th> </th></tr>';
-while ($reg=$registros->fetch_array())
-{
-  echo '<tr>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['idObra'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['contratante'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['nombreObra'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['fechaInicio'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['fechaFin'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  $datetime1 = date_create($reg['fechaFin']);
-$datetime2 = date_create($reg['fechaInicio']);
-$interval = date_diff($datetime2, $datetime1);
-echo $interval->format('%R%a días');
-  echo '</td>';
-  ?>
-   <td>
-    <a href="" id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-    <a id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-danger">
-    <i class="fa fa-trash-o" aria-hidden="true"></i>
-    </a>
-  </td>
-  <?php
-  echo '</tr>';
-}
-echo '</table>';
-echo '</div>';
-$jorge->close();
-include('../Crud/md_agregarObra.php');
- ?>
- <br>
- <br>
- <center>
-     <form action="PrincipalIngeniero.php">
-   <input type="submit" value="volver" class="btn btn-primary">
+      <!-- Main component for a primary marketing message or call to action -->
+      <section class="container">
+      <div class="jumbotron">
+        <h2>Cambiar contrase&#241;a</h2>
+        <br>
+      <form method="POST" name="myForma" action="javascript:envio()">
+        <label>
+        Ingrese contraseña actual
+        </label>
+        <div>
+      <input type="password" name="act" size="80" required>
+      <p id="demo1"></p>
+      </div>
+      <label>
+      Password
+      </label>
+      <div>
+      <input type="password" name="PS1" size="80" onkeyup=" validarC();" required>
+      </div>
+      <label>
+      Repeat Password
+      </label>
+      <div>
+      <input type="password" name="PS2" size="80" onkeyup=" validarC();" required>
+      </div>
+      <div>
+         <p id="demo"></p>
+        <input type="submit" class="btn btn-primary" value="Submit">
+        <input type="reset" class="btn btn-primary" value="Reset">
+        </div>
 </form>
-</center>
-</fieldset>  
-</section>
-<script src="../js/jquery.js"></script>
-<script src="../js/jquery.easing.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/modalsObra.js"></script>
-<script type="text/javascript">
-      $(document).ready(function(){
-      $('.dropdown-submenu a.test').on("click", function(e){
-        $(this).next('ul').toggle();
-        e.stopPropagation();
-        e.preventDefault();
-      });
-    });
-          function validarFecha(){
+      </div>
+    </div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    </section>
+   <script src="../js/jquery-1.11.0.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+function validarC(){
+ if (document.myForma.PS1.value == document.myForma.PS2.value) {
+  document.getElementById("demo").innerHTML = "contraseñas coinciden";
+  }else{
+  document.getElementById("demo").innerHTML = "contraseñas no coinciden";
+  }
+} 
 
-      var a=document.getElementById('fechaI').value;
-      var b=document.getElementById('fechaF').value;
-      if (b<a) {
-        alert("Fecha final no valida");
-        b.focus();
-      }else{
-      myForm.submit();
-      }
-    }
+function envio(){
+          if (document.myForma.PS1.value == document.myForma.PS2.value)
+          {
+          var ac=document.forms.myForma.act.value;
+          var nu=document.forms.myForma.PS1.value;
+          window.location="modificarConing.php?actual="+ ac + "&nueva="+nu;
+          }else{
+            location.reload();
+          }   
+}
+
 </script>
-</body>
+  </body>
 </html>
-  <?php  
-     include('../Crud/md_modificarObra.php');
-  
-  ?>

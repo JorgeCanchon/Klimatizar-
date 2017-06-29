@@ -53,11 +53,17 @@ require_once '../controlers/core.php';
                    <li class="dropdown-submenu">
         <a class="test" tabindex="-1" href="#">Kardex<span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <a class="test" href="#">Solicitud de material <span class="caret"></span></a> 
-          </li>            
+            
+            <a class="test" href="#">Solicitud de material <span class="caret"></span></a>
+            
+          
+          </li>
+                   
         </ul>
       </li>
-    </ul>
+                  
+                  
+                </ul>
                   </li> 
                                                       <!--usuario-->
                   <li  class="active" ><a href="#" data-toggle="dropdown" ><?php echo $_SESSION['usuario']; ?><span class="caret"></a>
@@ -98,115 +104,24 @@ require_once '../controlers/core.php';
           </nav>
         </div><!--/.container-fluid -->
       
-  <br>
-  <br>
-  <br>
-    <div class="container">
-      <div class="col-md-2 col-md-offset-10">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#inst_obra"> 
-          Agregar
-          <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-        </button>
-      </div><!-- /.span -->
-    </div>
-  <br>
-  <br>
-
-  <section class="contenedor">
-  <fieldset>
-  <legend><h1 style="color:black;">LISTADO OBRA</h1></legend> 
-<?php 
-include '../controlers/conectar.php';
- ?>
-<?php 
-$jorge=conectar();
-$registros=$jorge->query("select idObra,contratante,nombreObra,visibilidad,fechaInicio,fechaFin from obra where visibilidad=1")or
-die($jorge->error);
-echo '<div class="table-responsive">';
-echo '<table class="table table-bordered table-hover">';
-echo '<tr><th>CODIGO OBRA</th><th>CONTRATANTE</th><th>NOMBRE OBRA</th><th>FECHA INICIO</th><th>FECHA FIN</th><th>DURACION</th><th> </th></tr>';
-while ($reg=$registros->fetch_array())
-{
-  echo '<tr>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['idObra'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['contratante'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['nombreObra'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['fechaInicio'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['fechaFin'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  $datetime1 = date_create($reg['fechaFin']);
-$datetime2 = date_create($reg['fechaInicio']);
-$interval = date_diff($datetime2, $datetime1);
-echo $interval->format('%R%a días');
-  echo '</td>';
-  ?>
-   <td>
-    <a href="" id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-    <a id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-danger">
-    <i class="fa fa-trash-o" aria-hidden="true"></i>
-    </a>
-  </td>
-  <?php
-  echo '</tr>';
-}
-echo '</table>';
-echo '</div>';
-$jorge->close();
-include('../Crud/md_agregarObra.php');
- ?>
- <br>
- <br>
- <center>
-     <form action="PrincipalIngeniero.php">
-   <input type="submit" value="volver" class="btn btn-primary">
-</form>
-</center>
-</fieldset>  
-</section>
-<script src="../js/jquery.js"></script>
-<script src="../js/jquery.easing.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/modalsObra.js"></script>
-<script type="text/javascript">
-      $(document).ready(function(){
+             <p>
+             <center style="color:#000;margin-left:10px;position: auto;">
+               <h3>
+               <?php 
+               echo "Bienvenido(a) Ingeniero :".$_SESSION['usuario'];?>
+               </h3>
+             </center>
+             </p>
+       <script src="../js/jquery-1.11.0.min.js"></script>
+      <script src="../js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
       $('.dropdown-submenu a.test').on("click", function(e){
         $(this).next('ul').toggle();
         e.stopPropagation();
         e.preventDefault();
       });
     });
-          function validarFecha(){
-
-      var a=document.getElementById('fechaI').value;
-      var b=document.getElementById('fechaF').value;
-      if (b<a) {
-        alert("Fecha final no valida");
-        b.focus();
-      }else{
-      myForm.submit();
-      }
-    }
-</script>
+    </script>
 </body>
 </html>
-  <?php  
-     include('../Crud/md_modificarObra.php');
-  
-  ?>

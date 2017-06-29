@@ -1,5 +1,5 @@
 <?php 
-require_once '../controlers/core.php';
+require_once 'core.php';
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,11 +11,11 @@ require_once '../controlers/core.php';
     <meta name="author" content="">
     <title>Klimatizar-Empleado</title>
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.css"> 
-    <link rel="shortcut icon" href="../images/LOGOKLIMACOL.jpg" type="image/x-icon">
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/estilo.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css">  
+     <link rel="shortcut icon" href="../images/LOGOKLIMACOL.jpg" type="image/x-icon">
   </head>
     <body>
       <div class="container">
@@ -92,74 +92,73 @@ require_once '../controlers/core.php';
               </ul>
                   </li>
       <ul class="nav navbar-nav">
-     <li><a class="fa fa-power-off fa-2x" href="../controlers/cerrarSesion.php"></a></li> 
+     <li><a class="fa fa-power-off fa-2x" href="cerrarSesion.php"></a></li> 
       </ul>
           </div><!--/.nav-collapse -->
           </nav>
         </div><!--/.container-fluid -->
-      
   <br>
-  <br>
-  <br>
-    <div class="container">
+  <section class="contenedor">
+  <div class="row">
       <div class="col-md-2 col-md-offset-10">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#inst_obra"> 
+        <a href="agregarSolicitud.php" class="btn btn-primary" >
           Agregar
           <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-        </button>
+        </a>
       </div><!-- /.span -->
-    </div>
-  <br>
-  <br>
-
-  <section class="contenedor">
-  <fieldset>
-  <legend><h1 style="color:black;">LISTADO OBRA</h1></legend> 
-<?php 
-include '../controlers/conectar.php';
- ?>
-<?php 
+    </div>  
+<br>
+    <fieldset>
+     <legend><h1 style="color:black;">SOLICITUD DE MATERIAL</h1></legend>
+ <?php 
+include 'functioning.php';
 $jorge=conectar();
-$registros=$jorge->query("select idObra,contratante,nombreObra,visibilidad,fechaInicio,fechaFin from obra where visibilidad=1")or
-die($jorge->error);
+$page = (int) (!isset($_GET["page"]) ? 1 : $_GET["page"]);
+      $limit = 5; //if you want to dispaly 10 records per page then you have to change here
+      $startpoint = ($page * $limit) - $limit;
+        $statement = "solicituddematerial order by idSolicitud";
 echo '<div class="table-responsive">';
 echo '<table class="table table-bordered table-hover">';
-echo '<tr><th>CODIGO OBRA</th><th>CONTRATANTE</th><th>NOMBRE OBRA</th><th>FECHA INICIO</th><th>FECHA FIN</th><th>DURACION</th><th> </th></tr>';
-while ($reg=$registros->fetch_array())
-{
+echo '<tr><th><center>CODIGO</center></th><th><center>FECHA</center></th><th><center>CLIENTE</center></th><th><center>OBRA</center></th><th><center>SOLICITADO POR</center></th><th>Detalle</th><th>Orden de compra</th><th></th></tr>';
+  $res=$jorge->query("SELECT * FROM verSolicitud LIMIT {$startpoint} , {$limit} ");
+while ($row=$res->fetch_array()) {
   echo '<tr>';
   echo '<td>';
-  echo "<center>";
-  echo $reg['idObra'];
+  echo '<center>';
+  echo $row['idSolicitud'];
+  echo '</center>';
   echo '</td>';
   echo '<td>';
-  echo "<center>";
-  echo $reg['contratante'];
+  echo '<center>';
+  echo $row['fecha'];
+  echo '</center>';
   echo '</td>';
   echo '<td>';
-  echo "<center>";
-  echo $reg['nombreObra'];
+  echo '<center>';
+  echo $row['comprador'];
+  echo '</center>';
+  echo '</td>';
+   echo '<td>';
+   echo '<center>';
+  echo $row['obra'];
+  echo '</center>';
+  echo '</td>';
+   echo '<td>';
+  echo '<center>';
+  echo $row['empleado'];
+  echo '</center>';
   echo '</td>';
   echo '<td>';
-  echo "<center>";
-  echo $reg['fechaInicio'];
-  echo '</td>';
+  echo '<a class="active" href="verSolicitud.php?codigoSolicitud='.$row['idSolicitud'].'">Ver</a>';
+  echo '</td>'; 
+    echo '</td>';
   echo '<td>';
-  echo "<center>";
-  echo $reg['fechaFin'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  $datetime1 = date_create($reg['fechaFin']);
-$datetime2 = date_create($reg['fechaInicio']);
-$interval = date_diff($datetime2, $datetime1);
-echo $interval->format('%R%a días');
-  echo '</td>';
-  ?>
+  echo '<a class="active" href="agregarOrden.php?codigoS='.$row['idSolicitud'].'">Asignar</a>';
+  echo '</td>'; 
+ ?>
    <td>
-    <a href="" id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-    <a id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-danger">
+    <a href="" id="<?php echo $row['idSolicitud'];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEPS"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <a data-solicitud="<?php echo $row['idSolicitud'];?>" class="btn btn-sm btn-danger">
     <i class="fa fa-trash-o" aria-hidden="true"></i>
     </a>
   </td>
@@ -167,46 +166,25 @@ echo $interval->format('%R%a días');
   echo '</tr>';
 }
 echo '</table>';
-echo '</div>';
+echo "<br>";
+echo '<div id="pagingg">';
+echo pagination($statement,$limit,$page);
+echo "</div>";
 $jorge->close();
-include('../Crud/md_agregarObra.php');
- ?>
- <br>
- <br>
- <center>
-     <form action="PrincipalIngeniero.php">
-   <input type="submit" value="volver" class="btn btn-primary">
-</form>
-</center>
-</fieldset>  
-</section>
+  ?> 
+  </fieldset> 
+  </section>
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery.easing.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="../js/modalsObra.js"></script>
-<script type="text/javascript">
-      $(document).ready(function(){
+<script src="../js/modalsOrden.js"></script>
+    <script>
+    $(document).ready(function(){
       $('.dropdown-submenu a.test').on("click", function(e){
         $(this).next('ul').toggle();
         e.stopPropagation();
         e.preventDefault();
       });
     });
-          function validarFecha(){
-
-      var a=document.getElementById('fechaI').value;
-      var b=document.getElementById('fechaF').value;
-      if (b<a) {
-        alert("Fecha final no valida");
-        b.focus();
-      }else{
-      myForm.submit();
-      }
-    }
-</script>
+    </script>
 </body>
 </html>
-  <?php  
-     include('../Crud/md_modificarObra.php');
-  
-  ?>

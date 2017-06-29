@@ -1,5 +1,5 @@
 <?php 
-require_once '../controlers/core.php';
+require_once 'core.php';
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -91,122 +91,160 @@ require_once '../controlers/core.php';
                   </li>
               </ul>
                   </li>
-      <ul class="nav navbar-nav">
+                   <ul class="nav navbar-nav">
      <li><a class="fa fa-power-off fa-2x" href="../controlers/cerrarSesion.php"></a></li> 
       </ul>
           </div><!--/.nav-collapse -->
           </nav>
         </div><!--/.container-fluid -->
-      
-  <br>
-  <br>
-  <br>
-    <div class="container">
-      <div class="col-md-2 col-md-offset-10">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#inst_obra"> 
-          Agregar
-          <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-        </button>
-      </div><!-- /.span -->
-    </div>
-  <br>
-  <br>
-
-  <section class="contenedor">
-  <fieldset>
-  <legend><h1 style="color:black;">LISTADO OBRA</h1></legend> 
 <?php 
-include '../controlers/conectar.php';
- ?>
-<?php 
+include 'conectar.php';
 $jorge=conectar();
-$registros=$jorge->query("select idObra,contratante,nombreObra,visibilidad,fechaInicio,fechaFin from obra where visibilidad=1")or
-die($jorge->error);
-echo '<div class="table-responsive">';
-echo '<table class="table table-bordered table-hover">';
-echo '<tr><th>CODIGO OBRA</th><th>CONTRATANTE</th><th>NOMBRE OBRA</th><th>FECHA INICIO</th><th>FECHA FIN</th><th>DURACION</th><th> </th></tr>';
-while ($reg=$registros->fetch_array())
+$registro=$jorge->query("SELECT u.usuario ,empleado.Documento,empleado.NombreCompleto AS Nombre, empleado.Direccion,
+ empleado.Telefono, empleado.Correo, empleado.FechaNacimiento, 
+cargo.NombreCargo AS Cargo,
+ eps.nombreEPS AS EPS, arl.nombreARL AS ARL, afp.nombreAFP AS AFP,empleado.visibilidad
+FROM empleado  
+INNER JOIN cargo ON cargo.codigoCargo=empleado.Cargo_codigoCargo 
+INNER JOIN eps ON eps.idEPS=empleado.EPS_idEPS
+INNER JOIN arl ON arl.idARL=empleado.ARL_idARL
+INNER JOIN afp ON afp.idAFP=empleado.AFP_idAFP 
+INNER JOIN usuario u ON empleado.Documento=u.Empleado_Documento
+WHERE empleado.visibilidad=1 AND Documento='" . $_SESSION['empleado'] . "'");
+if($reg=$registro->fetch_array())
 {
-  echo '<tr>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['idObra'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['contratante'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['nombreObra'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['fechaInicio'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  echo $reg['fechaFin'];
-  echo '</td>';
-  echo '<td>';
-  echo "<center>";
-  $datetime1 = date_create($reg['fechaFin']);
-$datetime2 = date_create($reg['fechaInicio']);
-$interval = date_diff($datetime2, $datetime1);
-echo $interval->format('%R%a días');
-  echo '</td>';
-  ?>
-   <td>
-    <a href="" id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-warning btn-editar" data-toggle="modal" data-target="#modificarEmpleado"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-    <a id="<?php echo $reg["idObra"];?>" class="btn btn-sm btn-danger">
-    <i class="fa fa-trash-o" aria-hidden="true"></i>
-    </a>
-  </td>
-  <?php
-  echo '</tr>';
-}
-echo '</table>';
-echo '</div>';
-$jorge->close();
-include('../Crud/md_agregarObra.php');
  ?>
- <br>
- <br>
- <center>
-     <form action="PrincipalIngeniero.php">
-   <input type="submit" value="volver" class="btn btn-primary">
+<div class="container">
+  <div class="jumbotron">
+      <form method="POST" action="ModificarInformacioning1.php" >
+      <legend>
+        Modificar Informacion  <strong><?php echo $_SESSION['usuario']; ?></strong>
+      </legend>
+      <fieldset>
+      <div class="form-group"> 
+     <label>Documento</label>
+        <input value="<?php echo $reg['Documento']?>" class="form-control" disabled>
+     </div>
+      <div class="form-group"> 
+      <label>Usuario</label>
+      <input type="text" class="form-control"  name="usuario" value="<?php echo $reg['usuario']; ?>">
+      </div>
+     <div class="form-group"> 
+     <label>NombreCompleto</label>
+        <input type="text" value="<?php echo $reg['Nombre']?>" class="form-control" title="Ingrese solo letras" id="nombreCompleto" name="nombreCompleto" pattern="[a-z A-Z]{1,100}" required >
+     </div>
+     <div class="form-group">
+     <label>Direccion</label>
+     <input type="text" value="<?php echo $reg['Direccion']?>" class="form-control" name="Direccion" id="direccion" pattern="[a-z A-Z0-9]{1,45}" required>
+    </div>
+    <div class="form-group">
+     <label>Telefono</label>
+     <input type="tel" value="<?php echo $reg['Telefono']?>" class="form-control" name="Telefono" id="telefono" pattern="[0-9]{7,25}" required>
+     </div>
+  <div class="form-group">
+     <label>Correo</label>
+    <input type="email" value="<?php echo $reg['Correo']?>" class="form-control" name="Correo" id="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required>
+            </div>
+  <div class="form-group">
+     <label>Fecha Nacimiento</label>
+     <input type="date" class="form-control"  value="<?php echo $reg['FechaNacimiento']?>" name="FechaN" id="fechaN" required>
+    </div>
+    <div class="form-group">
+     <label>Cargo</label>
+     <select class="form-control"  name="Cargo" required>          
+    <?php 
+      $jorge=conectar();
+      $registros=$jorge->query("select codigoCargo,NombreCargo from cargo")
+      or die($jorge->error);
+      while ($reg2=$registros->fetch_array()) {
+        if ($reg2['NombreCargo']==$reg['Cargo']) {
+          echo "<option value=\"".$reg2['codigoCargo']."\"selected>".$reg2['NombreCargo']."</option>";
+        }else
+          echo "<option value=\"".$reg2['codigoCargo']."\">".$reg2['NombreCargo']."</option>";
+        }
+    ?>
+  </select>
+  </div>
+  <div class="form-group">
+  <label>EPS</label>
+  <select name="idEPS" class="form-control" >
+    <?php 
+      $jorge=conectar();
+      $registros=$jorge->query("select idEPS,nombreEPS from eps")
+      or die($jorge->error);
+      while ($reg2=$registros->fetch_array()) {
+        if ($reg2['nombreEPS']==$reg['EPS']) {
+          echo "<option value=\"".$reg2['idEPS']."\"selected>".$reg2['nombreEPS']."</option>";
+        }
+          echo "<option value=\"".$reg2['idEPS']."\">".$reg2['nombreEPS']."</option>";
+            }
+    ?>
+  </select>
+  </div>
+    <div class="form-group">
+<label>ARL</label>
+<select name="idARL" class="form-control" >
+  <?php 
+    $jorge=conectar();
+    $registros=$jorge->query("select idARL,nombreARL from arl")
+    or die($jorge->error);
+    while ($reg2=$registros->fetch_array()) {
+      if ($reg2['nombreARL']==$reg['ARL']) {
+        echo "<option value=\"".$reg2['idARL']."\"selected>".$reg2['nombreARL']."</option>";
+      }
+        echo "<option value=\"".$reg2['idARL']."\">".$reg2['nombreARL']."</option>";
+        }
+  ?>
+</select>
+</div>
+  <div class="form-group">
+<label>AFP</label>
+<select name="idAFP" class="form-control">
+               <?php 
+              $jorge=conectar();
+              $registros=$jorge->query("select idAFP,nombreAFP from afp")
+              or die($jorge->error);
+              while ($reg2=$registros->fetch_array()) {
+                if ($reg2['nombreAFP']==$reg['AFP']) {
+                  echo "<option value=\"".$reg2['idAFP']."\"selected>".$reg2['nombreAFP']."</option>";
+                }
+                echo "<option value=\"".$reg2['idAFP']."\">".$reg2['nombreAFP']."</option>";
+              }
+                ?>
+                </select>
+ </div>
+    <input type="hidden" name="Documento" value="<?php echo $_REQUEST['Documento']; ?>">
+   <br>
+   <center>
+   <input type="submit" value="Enviar"  class="btn btn-primary">
+   </center>
+</div>
 </form>
-</center>
-</fieldset>  
-</section>
+      </div>
+<?php 
+}else{
+  $jorge->close();
+}  
+ ?>
+<form action="PrincipalIngeniero.php">
+<center>
+  <input type="submit" value="volver"  class="btn btn-primary">
+  </center>
+</form>
+</div> <!-- /container -->
+</div>
 <script src="../js/jquery.js"></script>
-<script src="../js/jquery.easing.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script src="../js/modalsObra.js"></script>
-<script type="text/javascript">
-      $(document).ready(function(){
+<script src="../js/modals.js"></script>
+    <script>
+    $(document).ready(function(){
       $('.dropdown-submenu a.test').on("click", function(e){
         $(this).next('ul').toggle();
         e.stopPropagation();
         e.preventDefault();
       });
     });
-          function validarFecha(){
 
-      var a=document.getElementById('fechaI').value;
-      var b=document.getElementById('fechaF').value;
-      if (b<a) {
-        alert("Fecha final no valida");
-        b.focus();
-      }else{
-      myForm.submit();
-      }
-    }
-</script>
+    </script>
 </body>
 </html>
-  <?php  
-     include('../Crud/md_modificarObra.php');
-  
-  ?>
